@@ -24,8 +24,8 @@
  <div class="nav-label">Menu utama</div>
  <button class="nav-btn active" data-page="dashboard"><span class="nav-icon">▦</span>Laman Utama</button>
  <button class="nav-btn" data-page="murid"><span class="nav-icon">♙</span>Profil & Data Murid</button>
- <button class="nav-btn" data-page="kehadiran"><span class="nav-icon">◷</span>Kehadiran & APDM</button>
- <button class="nav-btn" data-page="disiplin"><span class="nav-icon">⚑</span>Disiplin & SSDM <span class="nav-count">12</span></button>
+ <button class="nav-btn" data-page="kehadiran"><span class="nav-icon">◷</span>Kehadiran Murid</button>
+ <button class="nav-btn" data-page="disiplin"><span class="nav-icon">⚑</span>Disiplin & Sahsiah <span class="nav-count">12</span></button>
  <button class="nav-btn" data-page="bantuan"><span class="nav-icon">♡</span>Kebajikan & Bantuan</button>
  <button class="nav-btn" data-page="kaunseling"><span class="nav-icon">☏</span>Bimbingan & Kaunseling</button>
  <button class="nav-btn" data-page="3k"><span class="nav-icon">✚</span>Keselamatan, Kesihatan & 3K</button>
@@ -96,7 +96,7 @@ function updateHemDashboard(d){
   }
 }
 
-const menuNames={dashboard:"Laman Utama",murid:"Profil & Data Murid",kehadiran:"Kehadiran & APDM",disiplin:"Disiplin & SSDM",bantuan:"Kebajikan & Bantuan",kaunseling:"Bimbingan & Kaunseling","3k":"Keselamatan, Kesihatan & Kebersihan (3K)",kantin:"Kantin & Asrama",pibg:"Pemuafakatan PIBG / Sarana",laporan:"Laporan & Analisis"};
+const menuNames={dashboard:"Laman Utama",murid:"Profil & Data Murid",kehadiran:"Kehadiran Murid",disiplin:"Disiplin & Sahsiah",bantuan:"Kebajikan & Bantuan",kaunseling:"Bimbingan & Kaunseling","3k":"Keselamatan, Kesihatan & Kebersihan (3K)",kantin:"Kantin & Asrama",pibg:"Pemuafakatan PIBG / Sarana",laporan:"Laporan & Analisis"};
 const submenus={
 murid:["Senarai Induk Murid","Pendaftaran & Pertukaran","Data Keciciran"],
 kehadiran:["Rekod Harian","Analisis Bulanan","Ponteng Tegar","Status Penghantaran Kelas"],
@@ -202,7 +202,7 @@ function renderMonthlyAnalysis(d){
 }
 function monthlyAnalysisPage(){
   const now=new Date(),month=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s==='Analisis Bulanan'?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s==='Analisis Bulanan'?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
   <div class="notice" id="monthlyNote">Memuatkan data bulanan...</div>
   <div class="toolbar"><label style="color:var(--muted);font-size:10px">Pilih bulan</label><input class="field" type="month" id="monthlyPicker" value="${month}" onchange="loadMonthlyAnalysis(this.value)"><button class="btn secondary" onclick="loadMonthlyAnalysis(document.getElementById('monthlyPicker').value)">↻ Kemas kini</button><span class="tag" id="monthlyPeriod">—</span></div>
   <div class="grid kpis" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px">
@@ -264,9 +264,9 @@ function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'
 function attendancePage(sub){
   const chosen=sub||submenus.kehadiran[0];
   if(chosen!=='Rekod Harian'){
-    return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div><div class="notice">Modul <b>${chosen}</b> akan dibangunkan selepas integrasi Rekod Harian. Tiada data contoh dipaparkan sebagai rekod rasmi.</div><div class="card">${cardTitle(chosen,"Modul ini belum disambungkan kepada sumber data.","DALAM PEMBANGUNAN")}</div>`;
+    return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div><div class="notice">Modul <b>${chosen}</b> akan dibangunkan selepas integrasi Rekod Harian. Tiada data contoh dipaparkan sebagai rekod rasmi.</div><div class="card">${cardTitle(chosen,"Modul ini belum disambungkan kepada sumber data.","DALAM PEMBANGUNAN")}</div>`;
   }
-  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
   <div class="notice" id="attendanceNote">Memuatkan rekod daripada Google Sheets...</div>
   <div class="card">${cardTitle("Rekod Harian","Ringkasan kehadiran mengikut kelas berdasarkan tab HadirKelas.","DATA SEBENAR")}
   <div class="toolbar"><input class="field" type="date" id="attendanceDate" value="${new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)}" onchange="loadAttendanceModule(this.value)"><input class="field" id="attendanceSearch" placeholder="Cari kelas..." oninput="filterAttendanceTable()"><button class="btn secondary" onclick="loadAttendanceModule(document.getElementById('attendanceDate').value)">↻ Kemas kini</button></div>
@@ -292,8 +292,8 @@ function profileModulePage(){
 function tablePage(page,sub){
  const cfg={
  murid:{title:"Profil & Data Murid",desc:"Direktori induk, status pendaftaran dan pemantauan keciciran.",subs:submenus.murid,headers:["No. ID","Nama Murid","Kelas","Jantina","Status"],rows:students},
- kehadiran:{title:"Kehadiran & APDM",desc:"Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.",subs:submenus.kehadiran,headers:["Kelas","Jumlah Murid","Hadir","Tidak Hadir","Kehadiran"],rows:[["1 Amanah","30","29","1","96.7%"],["2 Cekal","29","27","2","93.1%"],["3 Bestari","31","28","3","90.3%"],["4 Dinamik","28","27","1","96.4%"],["5 Amanah","30","27","3","90.0%"],["5 Bestari","29","28","1","96.6%"]]},
- disiplin:{title:"Disiplin & SSDM",desc:"Pengurusan salah laku, amalan baik, kes berat dan pengawas.",subs:submenus.disiplin,headers:["Tarikh","Nama Murid","Kelas","Kategori","Status"],rows:[["19/11/2026","Murid SM24042","3 Bestari","Ponteng kelas","Dalam tindakan"],["18/11/2026","Murid SM23015","4 Cekal","Lewat hadir","Selesai"],["17/11/2026","Murid SM25018","2 Cekal","Merokok / vape","Siasatan"],["16/11/2026","Murid SM26001","1 Amanah","Amalan baik","Direkodkan"]]},
+ kehadiran:{title:"Kehadiran Murid",desc:"Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.",subs:submenus.kehadiran,headers:["Kelas","Jumlah Murid","Hadir","Tidak Hadir","Kehadiran"],rows:[["1 Amanah","30","29","1","96.7%"],["2 Cekal","29","27","2","93.1%"],["3 Bestari","31","28","3","90.3%"],["4 Dinamik","28","27","1","96.4%"],["5 Amanah","30","27","3","90.0%"],["5 Bestari","29","28","1","96.6%"]]},
+ disiplin:{title:"Disiplin & Sahsiah",desc:"Pengurusan salah laku, amalan baik, kes berat dan pengawas.",subs:submenus.disiplin,headers:["Tarikh","Nama Murid","Kelas","Kategori","Status"],rows:[["19/11/2026","Murid SM24042","3 Bestari","Ponteng kelas","Dalam tindakan"],["18/11/2026","Murid SM23015","4 Cekal","Lewat hadir","Selesai"],["17/11/2026","Murid SM25018","2 Cekal","Merokok / vape","Siasatan"],["16/11/2026","Murid SM26001","1 Amanah","Amalan baik","Direkodkan"]]},
  bantuan:{title:"Kebajikan & Bantuan",desc:"Penyelarasan bantuan persekolahan, kebajikan dan perlindungan murid.",subs:submenus.bantuan,headers:["Program","Sasaran","Telah diagih","Dalam proses","Kemajuan"],rows:[["BAP","1,428","1,380","48","96.6%"],["KWAMP","96","82","14","85.4%"],["Biasiswa","48","42","6","87.5%"],["SPBT","1,428","1,405","23","98.4%"],["RMT","120","120","0","100%"],["Takaful","1,428","1,428","0","100%"]]},
  kaunseling:{title:"Bimbingan & Kaunseling",desc:"Rekod sesi, saringan psikometrik dan intervensi Ziarah Cakna.",subs:submenus.kaunseling,headers:["Tarikh","Aktiviti","Kumpulan","Pegawai","Status"],rows:[["19/11/2026","Sesi individu","Tingkatan 3","Guru B&K","Selesai"],["20/11/2026","Saringan psikometrik","Tingkatan 1","Guru B&K","Dijadualkan"],["22/11/2026","Ziarah Cakna","Keluarga murid 2 Cekal","Pasukan HEM","Dirancang"]]},
  "3k":{title:"Keselamatan, Kesihatan & Kebersihan (3K)",desc:"Pemantauan kesihatan, keselamatan persekitaran dan kebersihan.",subs:submenus["3k"],headers:["Tarikh","Komponen","Lokasi","Dapatan","Status"],rows:[["19/11/2026","Kesihatan","Bilik Isolasi","5 murid dipantau","Dalam pemantauan"],["18/11/2026","Denggi","Blok B","1 lokasi berisiko","Tindakan"],["17/11/2026","Keselamatan","Blok Akademik","Pemeriksaan alat pemadam api","Selesai"]]},
