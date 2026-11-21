@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<base target="_top">
+<title>Profil & Data Murid | SMadJiwa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+:root{--bg:#0b1220;--panel:#111e31;--panel2:#16263d;--line:#263951;--text:#f3f7ff;--muted:#91a8c6;--blue:#4f8cff;--cyan:#16c7e8;--green:#20c997;--amber:#f5b942;--base:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:var(--base);min-height:100vh}
+button,input,select{font:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:#0e192a;border-bottom:1px solid var(--line);padding:10px 14px}
+.top-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:10px;min-height:42px}
+.logo{width:38px;height:38px;object-fit:contain;background:#fff;border-radius:10px;padding:3px;flex-shrink:0}
+.brand{min-width:0;flex:1}
+.eyebrow{font-size:9px;letter-spacing:1.2px;color:var(--cyan);font-weight:800;text-transform:uppercase}
+.brand-title{font-size:15px;font-weight:800;line-height:1.25}
+.brand-sub{font-size:9px;color:var(--muted);margin-top:2px}
+.tools{display:flex;gap:5px}
+.icon-btn{border:1px solid var(--line);background:var(--panel2);color:#dbeafe;border-radius:9px;width:32px;height:32px;cursor:pointer}
+main{max-width:1180px;margin:0 auto;padding:16px 14px 36px}
+.page-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:12px}
+.page-title{font-size:20px;font-weight:800;letter-spacing:-.5px}
+.page-desc{font-size:10px;color:var(--muted);margin-top:3px}
+.status{font-size:9px;color:#8fb8ff;background:#1a3150;border:1px solid #29466b;border-radius:20px;padding:6px 9px;white-space:nowrap}
+.panel{background:linear-gradient(145deg,#142238,#101c2e);border:1px solid var(--line);border-radius:13px;padding:12px;margin-bottom:11px;box-shadow:0 8px 24px #02081722}
+.search-wrap{position:relative}
+.search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#7891b2;font-size:12px}
+.search{width:100%;height:42px;background:#0d192a;border:1px solid #2a3e58;border-radius:10px;color:var(--text);padding:0 12px 0 35px;outline:none;font-size:12px}
+.search:focus,.select:focus{border-color:var(--blue);box-shadow:0 0 0 2px #4f8cff22}
+.filters{display:grid;grid-template-columns:1fr 1.3fr auto;gap:8px;margin-top:9px}
+.select{width:100%;min-width:0;height:38px;background:#0d192a;border:1px solid #2a3e58;border-radius:9px;color:#dce9fb;padding:0 10px;font-size:11px;outline:none}
+.primary{height:38px;border:1px solid #396ca8;border-radius:9px;background:#1e4775;color:white;padding:0 13px;font-weight:700;font-size:10px;cursor:pointer;white-space:nowrap}
+.primary:active,.icon-btn:active{transform:scale(.98)}
+.hint{font-size:9px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;padding:2px 2px 9px}
+.loader-area{display:none;text-align:center;padding:24px 10px;color:var(--muted);font-size:10px}
+.spinner{width:25px;height:25px;border:3px solid #31445e;border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-head{display:none;align-items:center;justify-content:space-between;margin:14px 2px 8px}
+.result-title{font-size:12px;font-weight:800}
+.count{font-size:9px;color:#9fc5ff;background:#1a3150;border-radius:20px;padding:5px 9px}
+.student-list{display:none;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#111e31}
+.student-row{display:flex;align-items:center;gap:10px;padding:9px 11px;border-bottom:1px solid #22344b;cursor:pointer;min-height:62px}
+.student-row:last-child{border-bottom:0}
+.student-row:active{background:#1a2b43}
+.avatar{width:40px;height:40px;border-radius:11px;object-fit:cover;background:#233750;border:1px solid #3a506d;flex-shrink:0}
+.student-info{min-width:0;flex:1}
+.student-name{font-size:11px;font-weight:800;text-transform:uppercase;line-height:1.35;overflow-wrap:anywhere}
+.student-meta{font-size:9px;color:var(--muted);margin-top:3px}
+.row-arrow{color:#6884a7;font-size:10px}
+.empty{display:none;text-align:center;padding:25px 12px;color:var(--muted);font-size:11px}
+.footer-note{text-align:center;color:#617895;font-size:9px;margin-top:14px}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#020817d9;backdrop-filter:blur(5px);padding:18px;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-card{width:min(520px,100%);max-height:min(88vh,800px);display:flex;flex-direction:column;background:#111e31;border:1px solid #314761;border-radius:17px;overflow:hidden;box-shadow:0 24px 80px #0009}
+.profile-top{display:flex;align-items:center;gap:12px;padding:15px;background:linear-gradient(120deg,#193657,#142238);border-bottom:1px solid var(--line)}
+.profile-img{width:68px;height:68px;object-fit:cover;border-radius:13px;background:#263b56;border:1px solid #49627f}
+.profile-heading{min-width:0;flex:1}
+.profile-heading h2{font-size:13px;line-height:1.35;margin:0;font-weight:800;text-transform:uppercase;overflow-wrap:anywhere}
+.profile-heading p{font-size:9px;color:#a8c2e3;margin:4px 0 0}
+.close{width:30px;height:30px;border:1px solid #49627f;background:#ffffff12;color:white;border-radius:9px;cursor:pointer;flex-shrink:0}
+.profile-body{padding:10px 14px;overflow:auto}
+.info-row{display:grid;grid-template-columns:minmax(105px, .85fr) 1.4fr;gap:10px;padding:9px 0;border-bottom:1px solid #263951}
+.info-row:last-child{border:0}
+.info-label{font-size:8px;color:#8fa8c8;text-transform:uppercase;font-weight:800;line-height:1.4}
+.info-value{font-size:10px;color:#eff6ff;font-weight:600;overflow-wrap:anywhere;line-height:1.5}
+.action-links{display:flex;gap:6px;margin-top:5px}
+.action-links a{font-size:8px;font-weight:800;text-decoration:none;padding:4px 8px;border-radius:6px;color:white;background:#2563eb}
+.action-links a.whatsapp{background:#138b5b}
+@media(max-width:600px){
+ .topbar{padding:8px 10px}.logo{width:34px;height:34px}.brand-title{font-size:13px}.brand-sub{font-size:8px}
+ main{padding:12px 10px 28px}.page-title{font-size:17px}.page-desc{font-size:9px}
+ .panel{padding:10px;border-radius:11px}.filters{grid-template-columns:1fr 1fr;gap:7px}
+ .filters .primary{grid-column:1/-1;width:100%}
+ .search{height:40px}.select{height:37px}
+ .student-row{padding:8px 9px;min-height:58px;gap:9px}.avatar{width:37px;height:37px;border-radius:10px}
+ .student-name{font-size:10px}.student-meta{font-size:8px}
+ .modal{padding:0;align-items:flex-end}
+ .modal-card{width:100%;max-height:92dvh;border-radius:18px 18px 0 0;border-bottom:0}
+ .profile-top{padding:13px}.profile-img{width:60px;height:60px}
+ .profile-body{padding:8px 13px calc(14px + env(safe-area-inset-bottom))}
+ .info-row{grid-template-columns:105px 1fr;padding:8px 0}
+}
+@media(min-width:601px){.search-filter-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:10px;align-items:start}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="top-inner">
+  <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/1/1d/SM_Sains_Sultan_Mohamad_Jiwa_logo.png" alt="Logo SMadJiwa">
+  <div class="brand">
+   <div class="eyebrow">Pengurusan Hal Ehwal Murid</div>
+   <div class="brand-title">Profil & Data Murid</div>
+   <div class="brand-sub">Sekolah Menengah Sains Sultan Mohamad Jiwa · Kedah</div>
+  </div>
+  <div class="tools">
+   <button class="icon-btn" onclick="changeFontSize(-1)" title="Kecilkan tulisan">A−</button>
+   <button class="icon-btn" onclick="changeFontSize(1)" title="Besarkan tulisan">A+</button>
+   <button class="icon-btn" onclick="refreshData()" title="Muat semula"><i class="fa-solid fa-rotate"></i></button>
+  </div>
+ </div>
+</header>
+<main>
+ <div class="page-head">
+  <div><div class="eyebrow">Direktori Murid</div><div class="page-title">Carian Profil Murid</div><div class="page-desc">Cari murid atau tapis mengikut tingkatan dan kelas.</div></div>
+  <div class="status" id="dataStatus">Memuatkan...</div>
+ </div>
 
+ <section class="panel">
+  <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" class="search" type="search" autocomplete="off" oninput="cariData()" placeholder="Cari nama atau ID murid..."></div>
+  <div class="filters">
+   <select id="tingSelect" class="select" onchange="updateKelasDropdown()"><option value="">Semua tingkatan</option></select>
+   <select id="kelSelect" class="select"><option value="">Pilih kelas</option></select>
+   <button class="primary" onclick="paparData()"><i class="fa-solid fa-list"></i> Papar senarai kelas</button>
+  </div>
+ </section>
+
+ <div class="hint"><span><i class="fa-regular fa-eye"></i> Paparan baca sahaja · Tanpa kata laluan</span><span id="totalHint">— murid</span></div>
+ <div id="loading" class="loader-area"><div class="spinner"></div><span id="loadText">Memuatkan data murid...</span></div>
+ <div id="resultHeader" class="result-head"><div class="result-title" id="displayTitle">Senarai murid</div><div class="count" id="displayCount">0 murid</div></div>
+ <section id="studentList" class="student-list"><div id="listContainer"></div></section>
+ <div id="emptyState" class="empty"><i class="fa-solid fa-users-slash" style="font-size:22px;display:block;margin-bottom:8px"></i>Tiada rekod ditemui.</div>
+ <div class="footer-note">Data profil dipaparkan daripada pangkalan data sekolah yang dibenarkan.</div>
+</main>
+
+<div id="flashCardModal" class="modal" onclick="closeModalOnBackdrop(event)">
+ <div class="modal-card" onclick="event.stopPropagation()">
+  <div class="profile-top">
+   <img id="modalImg" class="profile-img" src="" alt="Gambar murid">
+   <div class="profile-heading"><h2 id="modalName">Nama Murid</h2><p id="modalMeta">Profil murid</p></div>
+   <button class="close" onclick="closeFlashCardDirect()" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div id="modalBody" class="profile-body"></div>
+ </div>
+</div>
+
+<script>
+let meta={headers:[],students:[],classStructure:{},settings:{}};
+let currentFontSize=14;
+window.onload=()=>{refreshData();reportProfileHeight();};
+
+function reportProfileHeight(){
+  try{
+    const height=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+    window.parent.postMessage({type:'smadjiwa-profile-height',height:height},'*');
+  }catch(e){}
+}
+window.addEventListener('load',reportProfileHeight);
+window.addEventListener('resize',reportProfileHeight);
+if(window.ResizeObserver){new ResizeObserver(reportProfileHeight).observe(document.body);}
+
+
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function changeFontSize(delta){currentFontSize=Math.max(11,Math.min(20,currentFontSize+delta));document.documentElement.style.setProperty('--base',currentFontSize+'px');}
+function showLoading(show,msg='Memproses data...'){const el=document.getElementById('loading');document.getElementById('loadText').textContent=msg;el.style.display=show?'block':'none';}
+function refreshData(){
+ showLoading(true,'Memuat turun data murid...');
+ document.getElementById('dataStatus').textContent='Menyambung...';
+ google.script.run.withSuccessHandler(data=>{
+  meta=data||{headers:[],students:[],classStructure:{},settings:{}};
+  setupForms();showLoading(false);reportProfileHeight();
+  document.getElementById('dataStatus').textContent='Data dikemas kini';
+  document.getElementById('totalHint').textContent=(meta.students||[]).length.toLocaleString('ms-MY')+' murid';
+ }).withFailureHandler(err=>{
+  showLoading(false);document.getElementById('dataStatus').textContent='Ralat data';
+  document.getElementById('emptyState').style.display='block';
+  document.getElementById('emptyState').textContent='Gagal memuatkan data: '+(err.message||err);
+ }).getInitialData();
+}
+function setupForms(){
+ const ts=document.getElementById('tingSelect');ts.innerHTML='<option value="">Semua tingkatan</option>';
+ Object.keys(meta.classStructure||{}).sort((a,b)=>Number(a)-Number(b)).forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent='Tingkatan '+f;ts.appendChild(o);});
+ updateKelasDropdown();
+}
+function updateKelasDropdown(){
+ const ting=document.getElementById('tingSelect').value,ks=document.getElementById('kelSelect');
+ ks.innerHTML='<option value="">Pilih kelas</option>';
+ if(ting&&meta.classStructure[ting]) [...meta.classStructure[ting]].sort().forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=k;ks.appendChild(o);});
+}
+function cariData(){
+ const q=document.getElementById('searchInput').value.toLocaleUpperCase('ms-MY').trim();
+ if(q.length<2){hideResults();return;}
+ const filtered=(meta.students||[]).filter(s=>String(s[1]||'').toLocaleUpperCase('ms-MY').includes(q)||String(s[2]||'').toLocaleUpperCase('ms-MY').includes(q));
+ renderList(filtered,'Hasil carian');
+}
+function paparData(){
+ const kelas=document.getElementById('kelSelect').value;
+ if(!kelas){alert('Pilih kelas terlebih dahulu.');return;}
+ const filtered=(meta.students||[]).filter(s=>String(s[8]||'').trim()===kelas).sort((a,b)=>String(a[1]||'').localeCompare(String(b[1]||''),'ms'));
+ renderList(filtered,kelas);
+}
+function hideResults(){
+ document.getElementById('studentList').style.display='none';
+ document.getElementById('resultHeader').style.display='none';
+ document.getElementById('emptyState').style.display='none';
+}
+function renderList(data,title){
+ const container=document.getElementById('listContainer');
+ container.innerHTML='';
+ document.getElementById('displayTitle').textContent=title;
+ document.getElementById('displayCount').textContent=data.length+' murid';
+ document.getElementById('resultHeader').style.display='flex';
+ document.getElementById('emptyState').style.display=data.length?'none':'block';
+ document.getElementById('studentList').style.display=data.length?'block':'none';
+ if(!data.length)return;
+ data.forEach(s=>{
+  const item=document.createElement('div');item.className='student-row';item.onclick=()=>openFlashCard(s);
+  const img=esc(s[0]||'');
+  item.innerHTML=`<img class="avatar" src="${img}" alt="" onerror="this.onerror=null;this.src='https://placehold.co/80x80/233750/ffffff?text=M'">
+   <div class="student-info"><div class="student-name">${esc(s[1]||'Nama tidak dinyatakan')}</div><div class="student-meta">${esc(s[8]||'Kelas tidak dinyatakan')} · ID: ${esc(s[2]||'—')}</div></div><i class="fa-solid fa-chevron-right row-arrow"></i>`;
+  container.appendChild(item);
+ });
+}
+function openFlashCard(student){
+ const headers=meta.headers||[];
+ document.getElementById('modalImg').src=student[0]||'';
+ document.getElementById('modalName').textContent=student[1]||'Profil Murid';
+ document.getElementById('modalMeta').textContent=(student[8]||'')+' · ID '+(student[2]||'—');
+ const body=document.getElementById('modalBody');body.innerHTML='';
+ headers.forEach((label,idx)=>{
+  if(idx<=1)return;
+  const value=student[idx];
+  if(value==null||String(value).trim()==='')return;
+  const row=document.createElement('div');row.className='info-row';
+  const lab=document.createElement('div');lab.className='info-label';lab.textContent=label;
+  const val=document.createElement('div');val.className='info-value';val.textContent=value;
+  row.append(lab,val);
+  // Nombor telefon penjaga (indeks array asal 21) diberi pautan tindakan.
+  if(idx===21){
+   const clean=String(value).replace(/\D/g,'');
+   if(clean){
+    const actions=document.createElement('div');actions.className='action-links';
+    const tel=document.createElement('a');tel.href='tel:'+clean;tel.textContent='CALL';
+    const wa=document.createElement('a');wa.href='https://wa.me/'+(clean.startsWith('60')?clean:'60'+clean.replace(/^0/,''));wa.target='_blank';wa.rel='noopener';wa.className='whatsapp';wa.textContent='WHATSAPP';
+    actions.append(tel,wa);val.appendChild(actions);
+   }
+  }
+  body.appendChild(row);
+ });
+ document.getElementById('flashCardModal').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeModalOnBackdrop(e){if(e.target.id==='flashCardModal')closeFlashCardDirect();}
+function closeFlashCardDirect(){document.getElementById('flashCardModal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFlashCardDirect();});
+</script>
+</body>
+</html>
