@@ -155,6 +155,62 @@ function setupCharts(){
  donut("goodChart",[72,54,38,22],["Kepimpinan","Sukarelawan","Akademik","Sahsiah"],["#20c997","#4f8cff","#f5b942","#a78bfa"]);
 }
 function donut(id,data,labels,colors){let el=document.getElementById(id);if(el)charts.push(new Chart(el,{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:colors,borderColor:"#142137",borderWidth:3,hoverOffset:4}]},options:{maintainAspectRatio:false,cutout:"68%",plugins:{legend:{display:false},tooltip:{enabled:true}}}}))}
+
+let attendanceModuleData = null;
+function loadAttendanceModule(dateValue){
+  const note=document.getElementById('attendanceNote');
+  if(note) note.textContent='Memuatkan data kehadiran...';
+  const cb='hemAttendanceCallback_'+Date.now();
+  const script=document.createElement('script');
+  window[cb]=d=>{
+    try{
+      if(!d || !d.success) throw new Error(d && d.error ? d.error : 'Respons API tidak sah.');
+      attendanceModuleData=d;
+      renderAttendanceRows(d);
+    }catch(err){if(note)note.textContent='Ralat: '+err.message;}
+    finally{delete window[cb];script.remove();}
+  };
+  script.onerror=()=>{if(note)note.textContent='Gagal menghubungi GAS. Semak deployment versi terkini.';delete window[cb];script.remove();};
+  const url=GAS_URL+(GAS_URL.includes('?')?'&':'?')+'api=kehadiranKelas&tarikh='+
+    encodeURIComponent(dateValue||'')+'&callback='+encodeURIComponent(cb)+'&_='+Date.now();
+  script.src=url;document.body.appendChild(script);
+}
+function renderAttendanceRows(d){
+  const note=document.getElementById('attendanceNote');
+  const body=document.getElementById('attendanceRows');
+  const summary=document.getElementById('attendanceSummary');
+  const count=document.getElementById('attendanceCount');
+  if(note) note.textContent=d.nota+' Kemas kini: '+(d.dikemasKini||'—');
+  if(summary) summary.innerHTML=
+    `<span class="tag">Kelas: ${d.bilKelas}</span> <span class="tag">Murid: ${fmt(d.jumlahMurid)}</span> <span class="tag">Hadir: ${fmt(d.hadir)}</span> <span class="tag">Tidak hadir: ${fmt(d.tidakHadir)}</span> <span class="tag">Kehadiran: ${d.peratus==null?'—':d.peratus.toFixed(1)+'%'}</span>`;
+  if(count) count.textContent=`Memaparkan ${d.rows.length} kelas`;
+  const dateLabel=document.getElementById('attendanceDateLabel'); if(dateLabel) dateLabel.textContent='Tarikh: '+(d.tarikhPaparan||d.tarikh||'—');
+  if(body){
+    body.innerHTML=d.rows.length?d.rows.map(r=>`<tr>
+      <td>${escapeHtml(r.kelas)}</td><td>${fmt(r.jumlah)}</td><td>${fmt(r.hadir)}</td>
+      <td>${fmt(r.tidakHadir)}</td><td><span class="pill ${r.peratus>=95?'ok':r.peratus==null?'info':'warn'}">${r.peratus==null?'—':r.peratus.toFixed(1)+'%'}</span></td>
+    </tr>`).join(''):`<tr><td colspan="5" class="empty-note">Tiada rekod kehadiran untuk tarikh ini.</td></tr>`;
+  }
+}
+function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function attendancePage(sub){
+  const chosen=sub||submenus.kehadiran[0];
+  if(chosen!=='Rekod Harian'){
+    return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div><div class="notice">Modul <b>${chosen}</b> akan dibangunkan selepas integrasi Rekod Harian. Tiada data contoh dipaparkan sebagai rekod rasmi.</div><div class="card">${cardTitle(chosen,"Modul ini belum disambungkan kepada sumber data.","DALAM PEMBANGUNAN")}</div>`;
+  }
+  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  <div class="notice" id="attendanceNote">Memuatkan rekod daripada Google Sheets...</div>
+  <div class="card">${cardTitle("Rekod Harian","Ringkasan kehadiran mengikut kelas berdasarkan tab HadirKelas.","DATA SEBENAR")}
+  <div class="toolbar"><input class="field" type="date" id="attendanceDate" value="${new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)}" onchange="loadAttendanceModule(this.value)"><input class="field" id="attendanceSearch" placeholder="Cari kelas..." oninput="filterAttendanceTable()"><button class="btn secondary" onclick="loadAttendanceModule(document.getElementById('attendanceDate').value)">↻ Kemas kini</button></div>
+  <div id="attendanceSummary" class="toolbar"></div>
+  <div class="table-wrap"><table><thead><tr><th>Kelas</th><th>Jumlah Murid</th><th>Hadir</th><th>Tidak Hadir</th><th>Kehadiran</th></tr></thead><tbody id="attendanceRows"><tr><td colspan="5" class="empty-note">Memuatkan...</td></tr></tbody></table></div>
+  <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:12px"><span id="attendanceCount">—</span><span id="attendanceDateLabel"></span></div></div>`;
+}
+function filterAttendanceTable(){
+  const q=(document.getElementById('attendanceSearch')?.value||'').toLowerCase();
+  document.querySelectorAll('#attendanceRows tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none');
+}
+
 function tablePage(page,sub){
  const cfg={
  murid:{title:"Profil & Data Murid",desc:"Direktori induk, status pendaftaran dan pemantauan keciciran.",subs:submenus.murid,headers:["No. ID","Nama Murid","Kelas","Jantina","Status"],rows:students},
@@ -173,7 +229,7 @@ function tablePage(page,sub){
 }
 function statusPill(v){let s=String(v).toLowerCase(),c=(s.includes("selesai")||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
 function reports(){return `${head("Laporan & Analisis","Penjanaan laporan eksekutif untuk pemantauan dan mesyuarat pengurusan.")}<div class="grid report-grid">${[["Laporan Kehadiran","Analisis kehadiran mengikut tingkatan, kelas dan tempoh.","▣"],["Laporan Disiplin SSDM","Ringkasan salah laku, amalan baik dan status intervensi.","⚑"],["Laporan Kebajikan","Status agihan BAP, KWAMP, SPBT, RMT dan biasiswa.","♡"],["Laporan 3K","Kesihatan, keselamatan, kebersihan dan tindakan susulan.","✚"],["Laporan Kaunseling","Sesi kaunseling, psikometrik dan Ziarah Cakna.","☏"],["Laporan Eksekutif HEM","Ringkasan KPI utama untuk pembentangan pengurusan.","▤"]].map(x=>`<div class="card report-tile"><div class="kpi-icon blue" style="margin-bottom:13px">${x[2]}</div><h3>${x[0]}</h3><p>${x[1]}</p><button class="btn secondary" onclick="generateReport('${x[0]}','pdf')">Jana PDF ↗</button> <button class="btn secondary" onclick="generateReport('${x[0]}','excel')">Excel ↗</button></div>`).join("")}</div><div class="card section-card">${cardTitle("Prestasi KPI HEM","Pencapaian indikator utama sekolah bagi sesi 2026/2027.")}${[["Kehadiran murid","94.2% daripada sasaran 95%",94.2],["Penyelesaian agihan SPBT","98.4%",98.4],["Pengesahan BAP","96.6%",96.6],["Tindakan kes disiplin","75% kes selesai",75]].map(x=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]}</span></div><div class="progress"><i style="width:${x[2]}%"></i></div></div>`).join("")}</div>`}
-function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="laporan")c.innerHTML=reports();else c.innerHTML=tablePage(currentPage,currentSub)}
+function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}else c.innerHTML=tablePage(currentPage,currentSub)}
 function changeSub(p,s){currentSub=s;render()}
 function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod contoh`}
 function generateReport(name,type){let text=`${name}\nSM Sains Sultan Mohamad Jiwa\nTarikh: 19 November 2026\n\nLaporan ini ialah simulasi prototaip Dashboard HEM.\nJumlah murid: 1,428\nKehadiran: 94.2%\nKes disiplin aktif: 12\nPenerima bantuan: 386\n`;let blob=new Blob([text],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name.replaceAll(" ","_")+(type==="pdf"?".txt (simulasi PDF).txt":".csv");a.click();URL.revokeObjectURL(a.href);alert(`Simulasi eksport ${type.toUpperCase()} dijalankan. Untuk fail PDF/Excel sebenar, sambungkan modul penjanaan dokumen.`)}
