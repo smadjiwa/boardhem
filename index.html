@@ -182,14 +182,16 @@ function renderAttendanceRows(d){
   const count=document.getElementById('attendanceCount');
   if(note) note.textContent=d.nota+' Kemas kini: '+(d.dikemasKini||'—');
   if(summary) summary.innerHTML=
-    `<span class="tag">Kelas: ${d.bilKelas}</span> <span class="tag">Murid: ${fmt(d.jumlahMurid)}</span> <span class="tag">Hadir: ${fmt(d.hadir)}</span> <span class="tag">Tidak hadir: ${fmt(d.tidakHadir)}</span> <span class="tag">Kehadiran: ${d.peratus==null?'—':d.peratus.toFixed(1)+'%'}</span>`;
+    `<span class="tag">Kelas: ${d.bilKelas}</span> <span class="tag">Murid: ${fmt(d.jumlahMurid)}</span> <span class="tag">Hadir: ${fmt(d.hadir)}</span> <span class="tag">Tidak hadir: ${fmt(d.tidakHadir)}</span> <span class="tag">Kehadiran: ${d.peratus==null?'—':Math.round(d.peratus)+'%'}</span>`;
   if(count) count.textContent=`Memaparkan ${d.rows.length} kelas`;
   const dateLabel=document.getElementById('attendanceDateLabel'); if(dateLabel) dateLabel.textContent='Tarikh: '+(d.tarikhPaparan||d.tarikh||'—');
   if(body){
     body.innerHTML=d.rows.length?d.rows.map(r=>`<tr>
       <td>${escapeHtml(r.kelas)}</td><td>${fmt(r.jumlah)}</td><td>${fmt(r.hadir)}</td>
-      <td>${fmt(r.tidakHadir)}</td><td><span class="pill ${r.peratus>=95?'ok':r.peratus==null?'info':'warn'}">${r.peratus==null?'—':r.peratus.toFixed(1)+'%'}</span></td>
-    </tr>`).join(''):`<tr><td colspan="5" class="empty-note">Tiada rekod kehadiran untuk tarikh ini.</td></tr>`;
+      <td>${fmt(r.tidakHadir)}</td>
+      <td><span class="pill ${r.peratus>=95?'ok':r.peratus==null?'info':'warn'}">${r.peratus==null?'—':Math.round(r.peratus)+'%'}</span></td>
+      <td>${r.catatan && r.catatan.length ? r.catatan.map(x=>`<div style="margin:2px 0;line-height:1.5"><b>${escapeHtml(x.nama)}</b> <span class="pill warn">${escapeHtml(x.status)}</span></div>`).join('') : '<span style="color:var(--muted)">—</span>'}</td>
+    </tr>`).join(''):`<tr><td colspan="6" class="empty-note">Tiada rekod kehadiran untuk tarikh ini.</td></tr>`;
   }
 }
 function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -203,7 +205,7 @@ function attendancePage(sub){
   <div class="card">${cardTitle("Rekod Harian","Ringkasan kehadiran mengikut kelas berdasarkan tab HadirKelas.","DATA SEBENAR")}
   <div class="toolbar"><input class="field" type="date" id="attendanceDate" value="${new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)}" onchange="loadAttendanceModule(this.value)"><input class="field" id="attendanceSearch" placeholder="Cari kelas..." oninput="filterAttendanceTable()"><button class="btn secondary" onclick="loadAttendanceModule(document.getElementById('attendanceDate').value)">↻ Kemas kini</button></div>
   <div id="attendanceSummary" class="toolbar"></div>
-  <div class="table-wrap"><table><thead><tr><th>Kelas</th><th>Jumlah Murid</th><th>Hadir</th><th>Tidak Hadir</th><th>Kehadiran</th></tr></thead><tbody id="attendanceRows"><tr><td colspan="5" class="empty-note">Memuatkan...</td></tr></tbody></table></div>
+  <div class="table-wrap"><table><thead><tr><th>Kelas</th><th>Jumlah Murid</th><th>Hadir</th><th>Tidak Hadir</th><th>Kehadiran</th><th>Catatan</th></tr></thead><tbody id="attendanceRows"><tr><td colspan="6" class="empty-note">Memuatkan...</td></tr></tbody></table></div>
   <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:12px"><span id="attendanceCount">—</span><span id="attendanceDateLabel"></span></div></div>`;
 }
 function filterAttendanceTable(){
