@@ -156,6 +156,72 @@ function setupCharts(){
 }
 function donut(id,data,labels,colors){let el=document.getElementById(id);if(el)charts.push(new Chart(el,{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:colors,borderColor:"#142137",borderWidth:3,hoverOffset:4}]},options:{maintainAspectRatio:false,cutout:"68%",plugins:{legend:{display:false},tooltip:{enabled:true}}}}))}
 
+
+let monthlyAnalysisData = null;
+function loadMonthlyAnalysis(monthValue){
+  const note=document.getElementById('monthlyNote');
+  if(note) note.textContent='Memuatkan analisis bulanan daripada HadirKelas...';
+  const cb='hemMonthlyCallback_'+Date.now();
+  const script=document.createElement('script');
+  window[cb]=d=>{
+    try{
+      if(!d || !d.success) throw new Error(d && d.error ? d.error : 'Respons API tidak sah.');
+      monthlyAnalysisData=d;
+      renderMonthlyAnalysis(d);
+    }catch(err){if(note)note.textContent='Ralat: '+err.message;}
+    finally{delete window[cb];script.remove();}
+  };
+  script.onerror=()=>{if(note)note.textContent='Gagal menghubungi GAS. Pastikan versi deployment terkini telah diterbitkan.';delete window[cb];script.remove();};
+  script.src=GAS_URL+(GAS_URL.includes('?')?'&':'?')+'api=analisisBulanan&bulan='+
+    encodeURIComponent(monthValue||'')+'&callback='+encodeURIComponent(cb)+'&_='+Date.now();
+  document.body.appendChild(script);
+}
+function renderMonthlyAnalysis(d){
+  const note=document.getElementById('monthlyNote');
+  if(note)note.textContent=d.nota+' Kemas kini: '+d.dikemasKini;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('monthlyAvg',d.purata==null?'—':d.purata+'%');
+  set('monthlyDays',fmt(d.hariDirekod));
+  set('monthlyPresent',fmt(d.jumlahHadir));
+  set('monthlyAbsent',fmt(d.jumlahTidakHadir));
+  set('monthlyPeriod',d.bulanPaparan||d.bulan);
+  set('monthlyClassCount',d.kelas.length+' kelas');
+  const best=document.getElementById('monthlyBest');
+  if(best)best.innerHTML=d.kelasTerbaik.length?d.kelasTerbaik.map((x,i)=>`<div class="list-row"><span class="tag">#${i+1}</span><div style="flex:1"><b>${escapeHtml(x.kelas)}</b><small>${fmt(x.hadir)} / ${fmt(x.jumlah)} hadir</small></div><span class="pill ok">${x.peratus}%</span></div>`).join(''):'<div class="empty-note">Tiada data</div>';
+  const low=document.getElementById('monthlyAttention');
+  if(low)low.innerHTML=d.perluPerhatian.length?d.perluPerhatian.map(x=>`<div class="list-row"><div style="flex:1"><b>${escapeHtml(x.kelas)}</b><small>${fmt(x.tidakHadir)} tidak hadir · ${x.hariDirekod} hari direkod</small></div><span class="pill warn">${x.peratus}%</span></div>`).join(''):'<div class="empty-note">Semua kelas mencapai sasaran atau tiada data.</div>';
+  const tbody=document.getElementById('monthlyClassRows');
+  if(tbody)tbody.innerHTML=d.kelas.length?d.kelas.map(x=>`<tr><td>${escapeHtml(x.kelas)}</td><td>${x.tingkatan||'—'}</td><td>${fmt(x.hariDirekod)}</td><td>${fmt(x.hadir)}</td><td>${fmt(x.tidakHadir)}</td><td><span class="pill ${x.peratus>=95?'ok':'warn'}">${x.peratus==null?'—':x.peratus+'%'}</span></td><td>${escapeHtml(x.status)}</td></tr>`).join(''):'<tr><td colspan="7" class="empty-note">Tiada data bagi bulan ini.</td></tr>';
+
+  charts.forEach(c=>{if(c.canvas && (c.canvas.id==='monthlyTrendChart'||c.canvas.id==='monthlyLevelChart'))c.destroy();});
+  charts=charts.filter(c=>c.canvas && c.canvas.id!=='monthlyTrendChart'&&c.canvas.id!=='monthlyLevelChart');
+  const trendEl=document.getElementById('monthlyTrendChart');
+  if(trendEl)charts.push(new Chart(trendEl,{type:'line',data:{labels:d.trend.map(x=>x.label),datasets:[{label:'Kehadiran',data:d.trend.map(x=>x.peratus),borderColor:'#4f8cff',backgroundColor:'#4f8cff22',fill:true,tension:.25,pointRadius:3},{label:'Sasaran 95%',data:d.trend.map(()=>95),borderColor:'#f16b75',borderDash:[6,5],pointRadius:0,borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9fb1c9',font:{size:9},usePointStyle:true}}},scales:{x:{ticks:{color:'#9fb1c9',maxRotation:0,autoSkip:true},grid:{display:false}},y:{min:0,max:100,ticks:{color:'#9fb1c9',callback:v=>v+'%'},grid:{color:'#26364d'}}}}}));
+  const levelEl=document.getElementById('monthlyLevelChart');
+  if(levelEl)charts.push(new Chart(levelEl,{type:'bar',data:{labels:d.tingkatan.map(x=>x.tingkatan.replace('Tingkatan ','T')),datasets:[{label:'Kehadiran',data:d.tingkatan.map(x=>x.peratus),backgroundColor:d.tingkatan.map(x=>x.peratus==null?'#52647d':x.peratus>=95?'#20c997':'#f5b942'),borderRadius:5},{type:'line',label:'Sasaran 95%',data:d.tingkatan.map(()=>95),borderColor:'#f16b75',borderDash:[6,5],pointRadius:0,borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9fb1c9',font:{size:9},usePointStyle:true}}},scales:{x:{ticks:{color:'#9fb1c9'},grid:{display:false}},y:{min:0,max:100,ticks:{color:'#9fb1c9',callback:v=>v+'%'},grid:{color:'#26364d'}}}}}));
+}
+function monthlyAnalysisPage(){
+  const now=new Date(),month=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s==='Analisis Bulanan'?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  <div class="notice" id="monthlyNote">Memuatkan data bulanan...</div>
+  <div class="toolbar"><label style="color:var(--muted);font-size:10px">Pilih bulan</label><input class="field" type="month" id="monthlyPicker" value="${month}" onchange="loadMonthlyAnalysis(this.value)"><button class="btn secondary" onclick="loadMonthlyAnalysis(document.getElementById('monthlyPicker').value)">↻ Kemas kini</button><span class="tag" id="monthlyPeriod">—</span></div>
+  <div class="grid kpis" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px">
+    <div class="card"><div class="kpi-top">Purata Kehadiran <span class="kpi-icon green">◷</span></div><div class="kpi-value" id="monthlyAvg">—</div><div class="kpi-foot">Jumlah hadir ÷ jumlah rekod murid</div></div>
+    <div class="card"><div class="kpi-top">Hari Direkod <span class="kpi-icon blue">▦</span></div><div class="kpi-value" id="monthlyDays">—</div><div class="kpi-foot">Hari unik dalam HadirKelas</div></div>
+    <div class="card"><div class="kpi-top">Jumlah Hadir <span class="kpi-icon blue">✓</span></div><div class="kpi-value" id="monthlyPresent">—</div><div class="kpi-foot">Jumlah rekod kehadiran kelas</div></div>
+    <div class="card"><div class="kpi-top">Jumlah Tidak Hadir <span class="kpi-icon amber">!</span></div><div class="kpi-value" id="monthlyAbsent">—</div><div class="kpi-foot">Jumlah murid tidak hadir</div></div>
+  </div>
+  <div class="grid charts" style="grid-template-columns:1.5fr 1fr;margin-bottom:15px">
+    <div class="card">${cardTitle("Trend Kehadiran Harian","Peratus kehadiran setiap hari berdasarkan rekod kelas.","TREND")}<div class="chart-wrap"><canvas id="monthlyTrendChart"></canvas></div></div>
+    <div class="card">${cardTitle("Analisis Mengikut Tingkatan","Perbandingan T1 hingga T5 dengan sasaran 95%.","TINGKATAN")}<div class="chart-wrap"><canvas id="monthlyLevelChart"></canvas></div></div>
+  </div>
+  <div class="grid bottom" style="grid-template-columns:1fr 1fr;margin-bottom:15px">
+    <div class="card">${cardTitle("Kelas Terbaik","Tiga kelas dengan peratus kehadiran tertinggi.")}<div class="panel-list" id="monthlyBest"></div></div>
+    <div class="card">${cardTitle("Kelas Perlu Perhatian","Tiga kelas di bawah sasaran 95%.") }<div class="panel-list" id="monthlyAttention"></div></div>
+  </div>
+  <div class="card">${cardTitle("Prestasi Mengikut Kelas","Pengiraan berwajaran daripada jumlah hadir dan jumlah murid bagi setiap rekod.","<span id='monthlyClassCount'>—</span>")}<div class="table-wrap"><table><thead><tr><th>Kelas</th><th>Tingkatan</th><th>Hari Direkod</th><th>Jumlah Hadir</th><th>Jumlah Tidak Hadir</th><th>Purata Kehadiran</th><th>Status</th></tr></thead><tbody id="monthlyClassRows"><tr><td colspan="7" class="empty-note">Memuatkan...</td></tr></tbody></table></div></div>`;
+}
+
 let attendanceModuleData = null;
 function loadAttendanceModule(dateValue){
   const note=document.getElementById('attendanceNote');
@@ -231,7 +297,7 @@ function tablePage(page,sub){
 }
 function statusPill(v){let s=String(v).toLowerCase(),c=(s.includes("selesai")||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
 function reports(){return `${head("Laporan & Analisis","Penjanaan laporan eksekutif untuk pemantauan dan mesyuarat pengurusan.")}<div class="grid report-grid">${[["Laporan Kehadiran","Analisis kehadiran mengikut tingkatan, kelas dan tempoh.","▣"],["Laporan Disiplin SSDM","Ringkasan salah laku, amalan baik dan status intervensi.","⚑"],["Laporan Kebajikan","Status agihan BAP, KWAMP, SPBT, RMT dan biasiswa.","♡"],["Laporan 3K","Kesihatan, keselamatan, kebersihan dan tindakan susulan.","✚"],["Laporan Kaunseling","Sesi kaunseling, psikometrik dan Ziarah Cakna.","☏"],["Laporan Eksekutif HEM","Ringkasan KPI utama untuk pembentangan pengurusan.","▤"]].map(x=>`<div class="card report-tile"><div class="kpi-icon blue" style="margin-bottom:13px">${x[2]}</div><h3>${x[0]}</h3><p>${x[1]}</p><button class="btn secondary" onclick="generateReport('${x[0]}','pdf')">Jana PDF ↗</button> <button class="btn secondary" onclick="generateReport('${x[0]}','excel')">Excel ↗</button></div>`).join("")}</div><div class="card section-card">${cardTitle("Prestasi KPI HEM","Pencapaian indikator utama sekolah bagi sesi 2026/2027.")}${[["Kehadiran murid","94.2% daripada sasaran 95%",94.2],["Penyelesaian agihan SPBT","98.4%",98.4],["Pengesahan BAP","96.6%",96.6],["Tindakan kes disiplin","75% kes selesai",75]].map(x=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]}</span></div><div class="progress"><i style="width:${x[2]}%"></i></div></div>`).join("")}</div>`}
-function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}else c.innerHTML=tablePage(currentPage,currentSub)}
+function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){if(currentSub==="Analisis Bulanan"){c.innerHTML=monthlyAnalysisPage();loadMonthlyAnalysis(document.getElementById("monthlyPicker").value)}else{c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}}else c.innerHTML=tablePage(currentPage,currentSub)}
 function changeSub(p,s){currentSub=s;render()}
 function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod contoh`}
 function generateReport(name,type){let text=`${name}\nSM Sains Sultan Mohamad Jiwa\nTarikh: 19 November 2026\n\nLaporan ini ialah simulasi prototaip Dashboard HEM.\nJumlah murid: 1,428\nKehadiran: 94.2%\nKes disiplin aktif: 12\nPenerima bantuan: 386\n`;let blob=new Blob([text],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name.replaceAll(" ","_")+(type==="pdf"?".txt (simulasi PDF).txt":".csv");a.click();URL.revokeObjectURL(a.href);alert(`Simulasi eksport ${type.toUpperCase()} dijalankan. Untuk fail PDF/Excel sebenar, sambungkan modul penjanaan dokumen.`)}
