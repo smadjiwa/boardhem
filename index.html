@@ -46,7 +46,7 @@
 <script>
 
 // Integrasi data langsung daripada Web App GAS; reka bentuk asal dikekalkan.
-const GAS_URL = 'PASTE_URL_WEB_APP_GAS_DI_SINI';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0LMXCD7ZwdVY4IVMav8Ix5NQF2ng8wwvHqCAv21_cD9wj6q6sxC6l10yNPHH2DrI21w/exec';
 let hemDashboardData = null;
 
 function loadHemData(){
@@ -72,7 +72,7 @@ function loadHemData(){
     delete window[cb]; script.remove();
   };
   script.src = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') +
-    'api=hemDashboard&callback=' + cb + '&_=' + Date.now();
+    'api=hemDashboard&callback=' + encodeURIComponent(cb) + '&_=' + Date.now();
   document.body.appendChild(script);
 }
 function updateHemDashboard(d){
