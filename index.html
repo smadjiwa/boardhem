@@ -11,7 +11,7 @@
 <style>
 :root{--bg:#0b1220;--panel:#111c2e;--panel2:#162338;--line:#26364d;--muted:#91a2b9;--text:#edf3fb;--blue:#4f8cff;--cyan:#37c6e8;--green:#20c997;--amber:#f5b942;--red:#f16b75;--purple:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:13px}button,input,select{font:inherit}button{cursor:pointer}
-.app{display:flex;min-height:100vh}.sidebar{width:258px;background:#0e1929;border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0;overflow:auto;z-index:20;transition:.25s}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 23px;border-bottom:1px solid var(--line);margin-bottom:18px}.brand-mark{width:46px;height:46px;flex:none;border-radius:12px;background:#fff;display:grid;place-items:center;padding:4px;overflow:hidden;box-shadow:0 8px 22px #0004}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain}.brand strong{display:block;font-size:13px;letter-spacing:.2px}.brand small{color:var(--muted);font-size:10px}.nav-label{color:#667b98;font-size:10px;font-weight:800;letter-spacing:1.3px;padding:14px 12px 7px;text-transform:uppercase}.nav-btn{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border:0;background:transparent;color:#9eafc6;text-align:left;border-radius:9px;margin:2px 0;font-weight:600;font-size:12px;transition:.2s}.nav-btn:hover{background:#1b2a40;color:white}.nav-btn.active{background:#1b3a66;color:#fff;box-shadow:inset 3px 0 var(--blue)}.nav-icon{width:18px;text-align:center;font-size:15px}.nav-count{margin-left:auto;color:#f8c45b;background:#493b20;padding:3px 7px;border-radius:20px;font-size:10px}.side-foot{margin:25px 8px 0;padding:13px;background:#14243a;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:10px;line-height:1.6}.main{margin-left:258px;width:calc(100% - 258px);min-width:0}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#0d1726;position:sticky;top:0;z-index:10}.school-title{font-size:13px;font-weight:800;letter-spacing:.2px}.school-sub{color:var(--muted);font-size:10px;margin-top:4px}.top-actions{display:flex;align-items:center;gap:13px}.search{position:relative}.search input{width:225px;background:#142238;border:1px solid var(--line);border-radius:9px;padding:10px 12px 10px 34px;color:white;outline:none}.search span{position:absolute;left:12px;top:9px;color:#8194af}.profile{display:flex;align-items:center;gap:9px;padding-left:13px;border-left:1px solid var(--line)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#244b78;color:#d9ebff;font-weight:800}.profile b{display:block;font-size:11px}.profile small{color:var(--muted);font-size:10px}.mobile-menu{display:none;background:transparent;color:white;border:0;font-size:21px}.content{padding:27px 30px 38px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:12px}.eyebrow{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}.page-head h1{font-size:23px;margin:0 0 5px;letter-spacing:-.7px}.page-head p{color:var(--muted);margin:0;font-size:11px}.date-chip{background:#142238;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:#b7c6da;font-size:11px;white-space:nowrap}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(145deg,#142137,#101b2c);border:1px solid var(--line);border-radius:13px;padding:17px;min-width:0;box-shadow:0 7px 22px #00000012}.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:10px;font-weight:700}.kpi-icon{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;font-size:15px}.blue{background:#1c3a63;color:#78aaff}.green{background:#123e39;color:#50ddb6}.amber{background:#44371f;color:#ffd06a}.red{background:#482731;color:#ff8993}.purple{background:#332b56;color:#c2adff}.kpi-value{font-size:26px;font-weight:800;letter-spacing:-1px;margin:13px 0 4px}.kpi-foot{font-size:10px;color:var(--muted)}.kpi-foot strong{color:var(--green)}.charts{grid-template-columns:1.55fr 1fr 1fr;margin-bottom:15px}.card-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px}.card-title h3{margin:0;font-size:12px}.card-title p{margin:5px 0 0;color:var(--muted);font-size:10px}.tag{font-size:9px;color:#9eb2ce;background:#1b2b42;padding:5px 8px;border-radius:20px}.chart-wrap{height:205px;position:relative}.donuts{display:grid;grid-template-columns:1fr 1fr;gap:9px}.donut-item{text-align:center;min-width:0}.donut-item .chart-wrap{height:132px}.donut-item b{font-size:10px}.donut-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.bottom{grid-template-columns:1fr 1fr 1fr}.panel-list{display:flex;flex-direction:column;gap:10px}.list-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:1px solid #223148}.list-row:last-child{border:0;padding-bottom:0}.dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex:none}.list-row b{font-size:10px;display:block;margin-bottom:4px}.list-row small{font-size:9px;color:var(--muted);line-height:1.5}.task{display:flex;gap:9px;align-items:flex-start}.task input{accent-color:var(--green);margin-top:2px}.task.done b{text-decoration:line-through;color:#6f829d}.task b{font-size:10px}.task small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.activity-time{font-size:9px;color:var(--cyan);white-space:nowrap;margin-left:auto}.section-card{margin-top:15px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}.field{background:#0e1929;border:1px solid var(--line);border-radius:8px;color:#e8f0fa;padding:9px 11px;outline:none;min-width:150px}.btn{border:0;border-radius:8px;padding:9px 13px;background:var(--blue);color:white;font-weight:700;font-size:10px}.btn.secondary{background:#20334d;color:#c7d6e9;border:1px solid #30445f}.btn.success{background:#147b64}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:650px}th{text-align:left;color:#91a5c1;background:#17263b;font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:12px 13px}td{padding:12px 13px;border-top:1px solid #223148;font-size:10px;color:#d7e2f1}tr:hover td{background:#16243a}.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:700}.pill.ok{background:#123c36;color:#58d9b5}.pill.warn{background:#46371d;color:#ffd06a}.pill.danger{background:#482630;color:#ff8c98}.pill.info{background:#1c385c;color:#83b5ff}.empty-note{padding:30px;text-align:center;color:var(--muted)}.report-grid{grid-template-columns:repeat(3,1fr)}.report-tile{padding:18px}.report-tile h3{font-size:12px;margin:0 0 7px}.report-tile p{color:var(--muted);font-size:10px;line-height:1.6}.report-tile .btn{margin-top:9px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.subnav button{background:#142238;border:1px solid var(--line);color:#9fb1c9;border-radius:20px;padding:7px 12px;font-size:10px}.subnav button.active{background:#1d4778;color:white;border-color:#3978c2}.notice{padding:12px 14px;border-radius:9px;background:#152944;border:1px solid #29486c;color:#b9d6f6;font-size:10px;margin-bottom:14px}.progress-row{margin:14px 0}.progress-meta{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}.progress-meta span:last-child{color:var(--muted)}.progress{height:7px;background:#26364d;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#397ee8,#37c6e8)}.hidden{display:none!important}
+.app{display:flex;min-height:100vh}.sidebar{width:258px;background:#0e1929;border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0;overflow:auto;z-index:20;transition:.25s}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 23px;border-bottom:1px solid var(--line);margin-bottom:18px}.brand-mark{width:46px;height:46px;flex:none;border-radius:12px;background:#fff;display:grid;place-items:center;padding:4px;overflow:hidden;box-shadow:0 8px 22px #0004}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain}.brand strong{display:block;font-size:13px;letter-spacing:.2px}.brand-date{margin-top:7px;color:#8fa8c7;font-size:10px;font-weight:600;letter-spacing:.1px;white-space:nowrap}.brand-text{min-width:0}.brand-date span{color:#c2d3e8}.brand small{color:var(--muted);font-size:10px}.nav-label{color:#667b98;font-size:10px;font-weight:800;letter-spacing:1.3px;padding:14px 12px 7px;text-transform:uppercase}.nav-btn{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border:0;background:transparent;color:#9eafc6;text-align:left;border-radius:9px;margin:2px 0;font-weight:600;font-size:12px;transition:.2s}.nav-btn:hover{background:#1b2a40;color:white}.nav-btn.active{background:#1b3a66;color:#fff;box-shadow:inset 3px 0 var(--blue)}.nav-icon{width:18px;text-align:center;font-size:15px}.nav-count{margin-left:auto;color:#f8c45b;background:#493b20;padding:3px 7px;border-radius:20px;font-size:10px}.side-foot{margin:25px 8px 0;padding:13px;background:#14243a;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:10px;line-height:1.6}.main{margin-left:258px;width:calc(100% - 258px);min-width:0}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#0d1726;position:sticky;top:0;z-index:10}.school-title{font-size:13px;font-weight:800;letter-spacing:.2px}.school-sub{color:var(--muted);font-size:10px;margin-top:4px}.top-actions{display:flex;align-items:center;gap:13px}.search{position:relative}.search input{width:225px;background:#142238;border:1px solid var(--line);border-radius:9px;padding:10px 12px 10px 34px;color:white;outline:none}.search span{position:absolute;left:12px;top:9px;color:#8194af}.profile{display:flex;align-items:center;gap:9px;padding-left:13px;border-left:1px solid var(--line)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#244b78;color:#d9ebff;font-weight:800}.profile b{display:block;font-size:11px}.profile small{color:var(--muted);font-size:10px}.mobile-menu{display:none;background:transparent;color:white;border:0;font-size:21px}.content{padding:27px 30px 38px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:12px}.eyebrow{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}.page-head h1{font-size:23px;margin:0 0 5px;letter-spacing:-.7px}.page-head p{color:var(--muted);margin:0;font-size:11px}.date-chip{background:#142238;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:#b7c6da;font-size:11px;white-space:nowrap}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(145deg,#142137,#101b2c);border:1px solid var(--line);border-radius:13px;padding:17px;min-width:0;box-shadow:0 7px 22px #00000012}.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:10px;font-weight:700}.kpi-icon{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;font-size:15px}.blue{background:#1c3a63;color:#78aaff}.green{background:#123e39;color:#50ddb6}.amber{background:#44371f;color:#ffd06a}.red{background:#482731;color:#ff8993}.purple{background:#332b56;color:#c2adff}.kpi-value{font-size:26px;font-weight:800;letter-spacing:-1px;margin:13px 0 4px}.kpi-foot{font-size:10px;color:var(--muted)}.kpi-foot strong{color:var(--green)}.charts{grid-template-columns:1.55fr 1fr 1fr;margin-bottom:15px}.card-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px}.card-title h3{margin:0;font-size:12px}.card-title p{margin:5px 0 0;color:var(--muted);font-size:10px}.tag{font-size:9px;color:#9eb2ce;background:#1b2b42;padding:5px 8px;border-radius:20px}.chart-wrap{height:205px;position:relative}.donuts{display:grid;grid-template-columns:1fr 1fr;gap:9px}.donut-item{text-align:center;min-width:0}.donut-item .chart-wrap{height:132px}.donut-item b{font-size:10px}.donut-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.bottom{grid-template-columns:1fr 1fr 1fr}.panel-list{display:flex;flex-direction:column;gap:10px}.list-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:1px solid #223148}.list-row:last-child{border:0;padding-bottom:0}.dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex:none}.list-row b{font-size:10px;display:block;margin-bottom:4px}.list-row small{font-size:9px;color:var(--muted);line-height:1.5}.task{display:flex;gap:9px;align-items:flex-start}.task input{accent-color:var(--green);margin-top:2px}.task.done b{text-decoration:line-through;color:#6f829d}.task b{font-size:10px}.task small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.activity-time{font-size:9px;color:var(--cyan);white-space:nowrap;margin-left:auto}.section-card{margin-top:15px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}.field{background:#0e1929;border:1px solid var(--line);border-radius:8px;color:#e8f0fa;padding:9px 11px;outline:none;min-width:150px}.btn{border:0;border-radius:8px;padding:9px 13px;background:var(--blue);color:white;font-weight:700;font-size:10px}.btn.secondary{background:#20334d;color:#c7d6e9;border:1px solid #30445f}.btn.success{background:#147b64}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:650px}th{text-align:left;color:#91a5c1;background:#17263b;font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:12px 13px}td{padding:12px 13px;border-top:1px solid #223148;font-size:10px;color:#d7e2f1}tr:hover td{background:#16243a}.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:700}.pill.ok{background:#123c36;color:#58d9b5}.pill.warn{background:#46371d;color:#ffd06a}.pill.danger{background:#482630;color:#ff8c98}.pill.info{background:#1c385c;color:#83b5ff}.empty-note{padding:30px;text-align:center;color:var(--muted)}.report-grid{grid-template-columns:repeat(3,1fr)}.report-tile{padding:18px}.report-tile h3{font-size:12px;margin:0 0 7px}.report-tile p{color:var(--muted);font-size:10px;line-height:1.6}.report-tile .btn{margin-top:9px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.subnav button{background:#142238;border:1px solid var(--line);color:#9fb1c9;border-radius:20px;padding:7px 12px;font-size:10px}.subnav button.active{background:#1d4778;color:white;border-color:#3978c2}.notice{padding:12px 14px;border-radius:9px;background:#152944;border:1px solid #29486c;color:#b9d6f6;font-size:10px;margin-bottom:14px}.progress-row{margin:14px 0}.progress-meta{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}.progress-meta span:last-child{color:var(--muted)}.progress{height:7px;background:#26364d;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#397ee8,#37c6e8)}.hidden{display:none!important}
 @media(max-width:1150px){.kpis{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr 1fr}.charts .wide{grid-column:span 2}.bottom{grid-template-columns:1fr 1fr}.bottom .last{grid-column:span 2}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);box-shadow:20px 0 40px #0008}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.mobile-menu{display:block}.topbar{padding:0 15px;height:65px}.school-title{font-size:11px}.school-sub{font-size:9px}.search input{width:145px}.profile .profile-text{display:none}.content{padding:20px 14px}.page-head h1{font-size:20px}.kpis{grid-template-columns:repeat(2,1fr)}.charts,.bottom{grid-template-columns:1fr}.charts .wide,.bottom .last{grid-column:auto}.report-grid{grid-template-columns:1fr 1fr}.date-chip{display:none}}
 @media(max-width:420px){.search{display:none}.kpi-value{font-size:23px}.report-grid{grid-template-columns:1fr}}
@@ -20,14 +20,14 @@
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
- <div class="brand"><div class="brand-mark"><img src="https://mylink.la/storage/avatars/a7/51148-a7263e64de7d87e7.png" alt="Logo rasmi SM Sains Sultan Mohamad Jiwa" onerror="this.style.display='none';this.parentElement.textContent='SM';this.parentElement.style.color='#17365d';this.parentElement.style.fontWeight='800'"></div><div><strong>DASHBOARD HEM</strong><small>SM Sains Sultan Mohamad Jiwa</small></div></div>
+ <div class="brand"><div class="brand-mark"><img src="https://mylink.la/storage/avatars/a7/51148-a7263e64de7d87e7.png" alt="Logo rasmi SM Sains Sultan Mohamad Jiwa" onerror="this.style.display='none';this.parentElement.textContent='SM';this.parentElement.style.color='#17365d';this.parentElement.style.fontWeight='800'"></div><div class="brand-text"><strong>DASHBOARD HEM</strong><small>SM Sains Sultan Mohamad Jiwa</small><div class="brand-date">◷ &nbsp;<span id="hem-date">Memuatkan tarikh...</span></div></div></div>
  <div class="nav-label">Menu utama</div>
  <button class="nav-btn active" data-page="dashboard"><span class="nav-icon">▦</span>Laman Utama</button>
  <button class="nav-btn" data-page="murid"><span class="nav-icon">♙</span>Profil & Data Murid</button>
- <button class="nav-btn" data-page="kehadiran"><span class="nav-icon">◷</span>Kehadiran Murid</button>
- <button class="nav-btn" data-page="disiplin"><span class="nav-icon">⚑</span>Disiplin & Sahsiah <span class="nav-count">12</span></button>
- <button class="nav-btn" data-page="bantuan"><span class="nav-icon">♡</span>Kebajikan & Bantuan</button>
+ <button class="nav-btn" data-page="kehadiran"><span class="nav-icon">◷</span>Kehadiran & APDM</button>
+ <button class="nav-btn" data-page="disiplin"><span class="nav-icon">⚑</span>Disiplin & SSDM</button>
  <button class="nav-btn" data-page="kaunseling"><span class="nav-icon">☏</span>Bimbingan & Kaunseling</button>
+ <button class="nav-btn" data-page="bantuan"><span class="nav-icon">♡</span>Kebajikan & Bantuan</button>
  <button class="nav-btn" data-page="3k"><span class="nav-icon">✚</span>Keselamatan, Kesihatan & 3K</button>
  <button class="nav-btn" data-page="kantin"><span class="nav-icon">⌂</span>Kantin & Asrama</button>
  <button class="nav-btn" data-page="pibg"><span class="nav-icon">♧</span>PIBG / Sarana</button>
@@ -49,61 +49,31 @@
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0LMXCD7ZwdVY4IVMav8Ix5NQF2ng8wwvHqCAv21_cD9wj6q6sxC6l10yNPHH2DrI21w/exec';
 let hemDashboardData = null;
 
-let hemDashboardScript = null;
-let hemDashboardTimeout = null;
-
-function hemDashboardCallback(data){
-  clearTimeout(hemDashboardTimeout);
-  try{
-    if(!data || data.success !== true) throw new Error(data && data.error ? data.error : 'Respons API tidak sah.');
-    hemDashboardData = data;
-    const note = document.getElementById('hemDataNote');
-    updateHemDashboard(data);
-    if(note) note.textContent = (data.nota || 'Data berjaya dimuatkan daripada Google Sheets.') +
-      ' Dikemas kini: ' + (data.dikemasKini || '—');
-  }catch(err){
-    const note = document.getElementById('hemDataNote');
-    if(note) note.textContent = 'Ralat data HEM: ' + err.message;
-    console.error('Dashboard HEM:', err);
-  }finally{
-    if(hemDashboardScript){hemDashboardScript.remove();hemDashboardScript=null;}
-  }
-}
-
 function loadHemData(){
-  const note=document.getElementById('hemDataNote');
-  if(note) note.textContent='Menghubungkan ke Google Sheets...';
-
-  if(!GAS_URL || !GAS_URL.startsWith('https://script.google.com/')){
-    if(note) note.textContent='URL Web App GAS tidak sah.';
+  const note = document.getElementById('hemDataNote');
+  if(!GAS_URL.startsWith('https://script.google.com/')){
+    if(note) note.textContent = 'Masukkan URL Web App GAS pada pemboleh ubah GAS_URL.';
     return;
   }
-
-  if(hemDashboardScript) hemDashboardScript.remove();
-  clearTimeout(hemDashboardTimeout);
-
-  const script=document.createElement('script');
-  hemDashboardScript=script;
-  script.async=true;
-  script.onerror=()=>{
-    clearTimeout(hemDashboardTimeout);
-    if(note) note.textContent='Gagal memuatkan respons JSONP GAS. Semak deployment Web App.';
-    script.remove();
-    hemDashboardScript=null;
+  const cb = 'hemCallback_' + Date.now();
+  const script = document.createElement('script');
+  window[cb] = d => {
+    try {
+      if(!d || !d.success) throw new Error('Respons API tidak sah.');
+      hemDashboardData = d;
+      updateHemDashboard(d);
+      if(note) note.textContent = d.nota || 'Data berjaya dimuatkan daripada Google Sheets.';
+    } catch(e) {
+      if(note) note.textContent = 'Ralat data: ' + e.message;
+    } finally { delete window[cb]; script.remove(); }
   };
-
-  const url=GAS_URL+(GAS_URL.includes('?')?'&':'?')+
-    'api=hemDashboard&callback=hemDashboardCallback&_='+Date.now();
-  script.src=url;
-  document.head.appendChild(script);
-
-  hemDashboardTimeout=setTimeout(()=>{
-    if(hemDashboardScript===script){
-      script.remove();
-      hemDashboardScript=null;
-      if(note) note.textContent='Sambungan GAS mengambil masa terlalu lama. Klik Kemas kini data untuk cuba lagi.';
-    }
-  },20000);
+  script.onerror = () => {
+    if(note) note.textContent = 'Gagal menghubungi GAS. Semak URL dan deployment.';
+    delete window[cb]; script.remove();
+  };
+  script.src = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') +
+    'api=hemDashboard&callback=' + encodeURIComponent(cb) + '&_=' + Date.now();
+  document.body.appendChild(script);
 }
 function updateHemDashboard(d){
   const put = (id,v) => { const e=document.getElementById(id); if(e)e.textContent=v; };
@@ -115,8 +85,6 @@ function updateHemDashboard(d){
   put('hem-sick', fmt(d.muridSakit3K || 0));
   put('hem-date', d.tarikhData || '—');
   put('hem-updated', 'Kemas kini: '+(d.dikemasKini || '—'));
-  put('hem-discipline','—'); put('hem-discipline-foot','Belum disambungkan');
-  put('hem-aid','—'); put('hem-aid-foot','Belum disambungkan');
   const c=charts.find(x=>x.canvas && x.canvas.id==='attendanceChart');
   if(c && Array.isArray(d.pecahanTingkatan)){
     c.data.labels=d.pecahanTingkatan.map(x=>x.tingkatan);
@@ -126,7 +94,7 @@ function updateHemDashboard(d){
   }
 }
 
-const menuNames={dashboard:"Laman Utama",murid:"Profil & Data Murid",kehadiran:"Kehadiran Murid",disiplin:"Disiplin & Sahsiah",bantuan:"Kebajikan & Bantuan",kaunseling:"Bimbingan & Kaunseling","3k":"Keselamatan, Kesihatan & Kebersihan (3K)",kantin:"Kantin & Asrama",pibg:"Pemuafakatan PIBG / Sarana",laporan:"Laporan & Analisis"};
+const menuNames={dashboard:"Laman Utama",murid:"Profil & Data Murid",kehadiran:"Kehadiran & APDM",disiplin:"Disiplin & SSDM",bantuan:"Kebajikan & Bantuan",kaunseling:"Bimbingan & Kaunseling","3k":"Keselamatan, Kesihatan & Kebersihan (3K)",kantin:"Kantin & Asrama",pibg:"Pemuafakatan PIBG / Sarana",laporan:"Laporan & Analisis"};
 const submenus={
 murid:["Senarai Induk Murid","Pendaftaran & Pertukaran","Data Keciciran"],
 kehadiran:["Rekod Harian","Analisis Bulanan","Ponteng Tegar","Status Penghantaran Kelas"],
@@ -142,19 +110,19 @@ const students=[
 ];
 let currentPage="dashboard",currentSub="",charts=[];
 const fmt=n=>n.toLocaleString("ms-MY");
-function head(title,desc){return `<div class="page-head"><div><div class="eyebrow">Pengurusan Hal Ehwal Murid</div><h1>${title}</h1><p>${desc}</p></div><div class="date-chip">◷ &nbsp; <span id="hem-date">Memuatkan tarikh...</span></div></div>`}
+function head(title,desc){return `<div class="page-head"><div><div class="eyebrow">Pengurusan Hal Ehwal Murid</div><h1>${title}</h1><p>${desc}</p></div></div>`}
 function cardTitle(t,s,tag=""){return `<div class="card-title"><div><h3>${t}</h3><p>${s}</p></div>${tag?`<span class="tag">${tag}</span>`:""}</div>`}
-function dashboard(){return `${head("Ringkasan Eksekutif HEM","Pantauan menyeluruh status murid, kebajikan, disiplin dan keselamatan sekolah.")}<div class="notice" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span id="hemDataNote">Menunggu sambungan data Google Sheets...</span><button class="btn secondary" onclick="loadHemData()">↻ Kemas kini data</button></div><div class="grid kpis">
+function dashboard(){return `${head("Ringkasan Eksekutif HEM","Pantauan menyeluruh status murid, kebajikan, disiplin dan keselamatan sekolah.")}<div class="notice" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><span id="hemDataNote">Menunggu sambungan data Google Sheets...</span><button class="btn secondary" onclick="loadHemData();loadHemSahsiahData()">↻ Kemas kini data</button></div><div class="grid kpis">
 ${kpi("Jumlah Murid",'<span id="hem-total">—</span>','<span id="hem-gender">Lelaki — · Perempuan —</span>',"♙","blue","Sumber: Daftar")}
 ${kpi("Kehadiran Hari Ini",'<span id="hem-attendance">—</span>','<span id="hem-attendance-foot">Memuatkan data...</span>',"◷","green","Sumber: HadirKelas")}
-${kpi("Kes Disiplin Aktif",'<span id="hem-discipline">—</span>','<span id="hem-discipline-foot">Belum disambungkan</span>',"⚑","red","Modul disiplin belum disambungkan")}
-${kpi("Penerima Bantuan",'<span id="hem-aid">—</span>','<span id="hem-aid-foot">Belum disambungkan</span>',"♡","amber","Modul bantuan belum disambungkan")}
+${kpi("Kes Disiplin Aktif",'<span id="hem-discipline">—</span>','<span id="hem-discipline-foot">Belum disambungkan</span><small id="hem-discipline-status" style="display:block;margin-top:5px;color:#8da5c3">Menunggu sambungan API</small>',"⚑","red","Modul disiplin belum disambungkan")}
+${kpi("Kes UBK Aktif",'<span id="hem-ubk">—</span>','<span id="hem-ubk-foot">Memuatkan data UBK...</span>',"✚","purple","Sumber: Tab UBK")}
 ${kpi("Murid 3K / Sakit",'<span id="hem-sick">—</span>',"Hospital · MC · Rawatan · MC-PBM","✚","purple","Sumber: Kehadiran")}
 </div>
 <div class="grid charts">
 <div class="card wide">${cardTitle("Analisis Kehadiran Mengikut Tingkatan","Peratus kehadiran harian berbanding garis sasaran 95%.","HARI INI")}<div class="chart-wrap"><canvas id="attendanceChart"></canvas></div></div>
 <div class="card">${cardTitle("Agihan Kebajikan & Bantuan","Kemajuan agihan mengikut skim.","STATUS")}<div id="aidBars"></div></div>
-<div class="card">${cardTitle("Disiplin & Sahsiah","Taburan rekod salah laku dan amalan baik.","TAHUN 2026")}<div class="donuts"><div class="donut-item"><div class="chart-wrap"><canvas id="disciplineChart"></canvas></div><b>Kes Salah Laku</b><small>42 rekod direkodkan</small></div><div class="donut-item"><div class="chart-wrap"><canvas id="goodChart"></canvas></div><b>Amalan Baik</b><small>186 rekod direkodkan</small></div></div></div>
+<div class="card">${cardTitle("Disiplin & Sahsiah","Taburan rekod salah laku dan amalan baik.","TAHUN 2026")}<div class="donuts"><div class="donut-item"><div class="chart-wrap"><canvas id="disciplineChart"></canvas></div><b>Kes Salah Laku</b><small id="hemDisiplinJumlah">Menunggu data...</small></div><div class="donut-item"><div class="chart-wrap"><canvas id="goodChart"></canvas></div><b>Amalan Baik</b><small id="hemAmalanJumlah">Menunggu data...</small></div></div></div>
 </div>
 <div class="grid bottom">
 <div class="card">${cardTitle("Makluman Keselamatan & Kesihatan","Pemantauan 3K dan tindakan berisiko.")}<div class="panel-list">
@@ -181,10 +149,108 @@ function setupCharts(){
  charts.forEach(c=>c.destroy());charts=[];
  if(document.getElementById("attendanceChart")){charts.push(new Chart(document.getElementById("attendanceChart"),{type:"bar",data:{labels:["Tingkatan 1","Tingkatan 2","Tingkatan 3","Tingkatan 4","Tingkatan 5"],datasets:[{label:"Kehadiran",data:[null,null,null,null,null],backgroundColor:["#4f8cff","#4f8cff","#f5b942","#20c997","#f5b942"],borderRadius:5,barThickness:28},{type:"line",label:"Sasaran 95%",data:[95,95,95,95,95],borderColor:"#f16b75",borderDash:[6,5],pointRadius:0,borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:"#9fb1c9",font:{size:9},usePointStyle:true}}},scales:{x:{ticks:{color:"#9fb1c9",font:{size:9}},grid:{display:false}},y:{min:85,max:100,ticks:{color:"#9fb1c9",callback:v=>v+"%",font:{size:9}},grid:{color:"#26364d"}}}}}))}
  const aid=document.getElementById("aidBars");if(aid)aid.innerHTML=[["BAP","1,380 / 1,428 murid",96.6],["KWAMP","82 / 96 penerima",85.4],["SPBT","1,405 / 1,428 set",98.4],["Biasiswa","42 / 48 penerima",87.5]].map((x,i)=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]} · ${x[2]}%</span></div><div class="progress"><i style="width:${x[2]}%;background:${i===1?"#f5b942":i===3?"#a78bfa":"linear-gradient(90deg,#397ee8,#37c6e8)"}"></i></div></div>`).join("");
- donut("disciplineChart",[18,11,8,5],["Ponteng","Lambat","Vape/rokok","Lain-lain"],["#f16b75","#f5b942","#a78bfa","#4f8cff"]);
- donut("goodChart",[72,54,38,22],["Kepimpinan","Sukarelawan","Akademik","Sahsiah"],["#20c997","#4f8cff","#f5b942","#a78bfa"]);
+ donut("disciplineChart",[1],["Memuatkan data..."],["#40516b"]);
+ donut("goodChart",[1],["Memuatkan data..."],["#40516b"]);
+ loadHemSahsiahData();
 }
 function donut(id,data,labels,colors){let el=document.getElementById(id);if(el)charts.push(new Chart(el,{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:colors,borderColor:"#142137",borderWidth:3,hoverOffset:4}]},options:{maintainAspectRatio:false,cutout:"68%",plugins:{legend:{display:false},tooltip:{enabled:true}}}}))}
+
+
+
+/* INTEGRASI DATA DISIPLIN & SAHSIAH DARIPADA GOOGLE SHEETS */
+let hemSahsiahData = null;
+let hemSahsiahLoading = false;
+let hemSahsiahTimer = null;
+
+function loadHemSahsiahData(){
+  if(hemSahsiahLoading) return;
+  hemSahsiahLoading = true;
+  const cb = 'hemSahsiahCallback_' + Date.now();
+  const script = document.createElement('script');
+  let completed = false;
+
+  const finish = () => {
+    if(completed) return;
+    completed = true;
+    hemSahsiahLoading = false;
+    if(hemSahsiahTimer) clearTimeout(hemSahsiahTimer);
+    delete window[cb];
+    script.remove();
+  };
+
+  window[cb] = data => {
+    try {
+      if(!data || !data.success) throw new Error(data && data.error ? data.error : 'API tidak memulangkan data success=true.');
+      hemSahsiahData = data;
+      updateHemSahsiahUI(data);
+    } catch(err) {
+      setHemSahsiahError('Ralat API Sahsiah: ' + err.message);
+    } finally {
+      finish();
+    }
+  };
+
+  script.onerror = () => {
+    setHemSahsiahError('Gagal menghubungi API hemSahsiah. Semak URL GAS dan deployment versi terkini.');
+    finish();
+  };
+
+  hemSahsiahTimer = setTimeout(() => {
+    setHemSahsiahError('API hemSahsiah tidak memberi respons. Kemungkinan kod GAS belum diterbitkan semula.');
+    finish();
+  }, 15000);
+
+  script.src = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') +
+    'api=hemSahsiah&callback=' + encodeURIComponent(cb) + '&_=' + Date.now();
+  document.body.appendChild(script);
+}
+
+function setHemSahsiahError(message){
+  const active=document.getElementById('hem-discipline');
+  const foot=document.getElementById('hem-discipline-foot');
+  const status=document.getElementById('hem-discipline-status');
+  if(active) active.textContent='—';
+  if(foot) foot.textContent=message;
+  if(status) status.textContent='Semakan: '+new Date().toLocaleTimeString('ms-MY');
+  ['hemDisiplinJumlah','hemAmalanJumlah','hem-ubk-foot'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent='Data belum diterima';
+  });
+}
+
+function updateHemSahsiahUI(data){
+  const disiplin=data.disiplin||{};
+  const amalan=data.amalanBaik||{};
+  const put=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+
+  put('hem-discipline',fmt(Number(disiplin.aktif||0)));
+  put('hem-discipline-foot',fmt(Number(disiplin.belumSelesai||0))+' kes belum selesai');
+  put('hem-discipline-status','Dikemas kini: '+(data.dikemasKini||'—'));
+  const ubk=data.ubk||{};
+  put('hem-ubk',fmt(Number(ubk.aktif||0)));
+  put('hem-ubk-foot',fmt(Number(ubk.belumSelesai||0))+' kes belum selesai · '+fmt(Number(ubk.jumlah||0))+' jumlah kes');
+  put('hemDisiplinJumlah',fmt(Number(disiplin.jumlah||0))+' rekod direkodkan');
+  put('hemAmalanJumlah',fmt(Number(amalan.jumlah||0))+' rekod direkodkan');
+
+  ['disciplineChart','goodChart'].forEach(id=>{
+    const old=charts.find(c=>c.canvas&&c.canvas.id===id);
+    if(old){old.destroy();charts=charts.filter(c=>c!==old);}
+  });
+
+  const dRows=Array.isArray(disiplin.kategori)?disiplin.kategori:[];
+  const aRows=Array.isArray(amalan.kategori)?amalan.kategori:[];
+  const dColors=['#f16b75','#f5b942','#a78bfa','#4f8cff','#20c997','#37c6e8','#fb923c','#e879f9'];
+  const aColors=['#20c997','#4f8cff','#f5b942','#a78bfa','#f16b75','#37c6e8','#fb923c','#e879f9'];
+
+  donut('disciplineChart',
+    dRows.length?dRows.map(x=>Number(x.jumlah||0)):[1],
+    dRows.length?dRows.map(x=>x.nama):['Tiada rekod'],
+    dRows.length?dRows.map((x,i)=>dColors[i%dColors.length]):['#40516b']);
+  donut('goodChart',
+    aRows.length?aRows.map(x=>Number(x.jumlah||0)):[1],
+    aRows.length?aRows.map(x=>x.nama):['Tiada rekod'],
+    aRows.length?aRows.map((x,i)=>aColors[i%aColors.length]):['#40516b']);
+}
 
 
 let monthlyAnalysisData = null;
@@ -232,7 +298,7 @@ function renderMonthlyAnalysis(d){
 }
 function monthlyAnalysisPage(){
   const now=new Date(),month=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
-  return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s==='Analisis Bulanan'?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s==='Analisis Bulanan'?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
   <div class="notice" id="monthlyNote">Memuatkan data bulanan...</div>
   <div class="toolbar"><label style="color:var(--muted);font-size:10px">Pilih bulan</label><input class="field" type="month" id="monthlyPicker" value="${month}" onchange="loadMonthlyAnalysis(this.value)"><button class="btn secondary" onclick="loadMonthlyAnalysis(document.getElementById('monthlyPicker').value)">↻ Kemas kini</button><span class="tag" id="monthlyPeriod">—</span></div>
   <div class="grid kpis" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:15px">
@@ -294,9 +360,9 @@ function escapeHtml(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'
 function attendancePage(sub){
   const chosen=sub||submenus.kehadiran[0];
   if(chosen!=='Rekod Harian'){
-    return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div><div class="notice">Modul <b>${chosen}</b> akan dibangunkan selepas integrasi Rekod Harian. Tiada data contoh dipaparkan sebagai rekod rasmi.</div><div class="card">${cardTitle(chosen,"Modul ini belum disambungkan kepada sumber data.","DALAM PEMBANGUNAN")}</div>`;
+    return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div><div class="notice">Modul <b>${chosen}</b> akan dibangunkan selepas integrasi Rekod Harian. Tiada data contoh dipaparkan sebagai rekod rasmi.</div><div class="card">${cardTitle(chosen,"Modul ini belum disambungkan kepada sumber data.","DALAM PEMBANGUNAN")}</div>`;
   }
-  return `${head("Kehadiran Murid","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
+  return `${head("Kehadiran & APDM","Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.")}<div class="subnav">${submenus.kehadiran.map(s=>`<button class="${s===chosen?'active':''}" onclick="changeSub('kehadiran','${s}')">${s}</button>`).join('')}</div>
   <div class="notice" id="attendanceNote">Memuatkan rekod daripada Google Sheets...</div>
   <div class="card">${cardTitle("Rekod Harian","Ringkasan kehadiran mengikut kelas berdasarkan tab HadirKelas.","DATA SEBENAR")}
   <div class="toolbar"><input class="field" type="date" id="attendanceDate" value="${new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)}" onchange="loadAttendanceModule(this.value)"><input class="field" id="attendanceSearch" placeholder="Cari kelas..." oninput="filterAttendanceTable()"><button class="btn secondary" onclick="loadAttendanceModule(document.getElementById('attendanceDate').value)">↻ Kemas kini</button></div>
@@ -322,10 +388,10 @@ function profileModulePage(){
 function tablePage(page,sub){
  const cfg={
  murid:{title:"Profil & Data Murid",desc:"Direktori induk, status pendaftaran dan pemantauan keciciran.",subs:submenus.murid,headers:["No. ID","Nama Murid","Kelas","Jantina","Status"],rows:students},
- kehadiran:{title:"Kehadiran Murid",desc:"Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.",subs:submenus.kehadiran,headers:["Kelas","Jumlah Murid","Hadir","Tidak Hadir","Kehadiran"],rows:[["1 Amanah","30","29","1","96.7%"],["2 Cekal","29","27","2","93.1%"],["3 Bestari","31","28","3","90.3%"],["4 Dinamik","28","27","1","96.4%"],["5 Amanah","30","27","3","90.0%"],["5 Bestari","29","28","1","96.6%"]]},
- disiplin:{title:"Disiplin & Sahsiah",desc:"Pengurusan salah laku, amalan baik, kes berat dan pengawas.",subs:submenus.disiplin,headers:["Tarikh","Nama Murid","Kelas","Kategori","Status"],rows:[["19/11/2026","Murid SM24042","3 Bestari","Ponteng kelas","Dalam tindakan"],["18/11/2026","Murid SM23015","4 Cekal","Lewat hadir","Selesai"],["17/11/2026","Murid SM25018","2 Cekal","Merokok / vape","Siasatan"],["16/11/2026","Murid SM26001","1 Amanah","Amalan baik","Direkodkan"]]},
+ kehadiran:{title:"Kehadiran & APDM",desc:"Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.",subs:submenus.kehadiran,headers:["Kelas","Jumlah Murid","Hadir","Tidak Hadir","Kehadiran"],rows:[["1 Amanah","30","29","1","96.7%"],["2 Cekal","29","27","2","93.1%"],["3 Bestari","31","28","3","90.3%"],["4 Dinamik","28","27","1","96.4%"],["5 Amanah","30","27","3","90.0%"],["5 Bestari","29","28","1","96.6%"]]},
+ disiplin:{title:"Disiplin & SSDM",desc:"Pengurusan salah laku, amalan baik, kes berat dan pengawas.",subs:submenus.disiplin,headers:["Tarikh","Nama Murid","Kelas","Kategori","Status"],rows:[]},
  bantuan:{title:"Kebajikan & Bantuan",desc:"Penyelarasan bantuan persekolahan, kebajikan dan perlindungan murid.",subs:submenus.bantuan,headers:["Program","Sasaran","Telah diagih","Dalam proses","Kemajuan"],rows:[["BAP","1,428","1,380","48","96.6%"],["KWAMP","96","82","14","85.4%"],["Biasiswa","48","42","6","87.5%"],["SPBT","1,428","1,405","23","98.4%"],["RMT","120","120","0","100%"],["Takaful","1,428","1,428","0","100%"]]},
- kaunseling:{title:"Bimbingan & Kaunseling",desc:"Rekod sesi, saringan psikometrik dan intervensi Ziarah Cakna.",subs:submenus.kaunseling,headers:["Tarikh","Aktiviti","Kumpulan","Pegawai","Status"],rows:[["19/11/2026","Sesi individu","Tingkatan 3","Guru B&K","Selesai"],["20/11/2026","Saringan psikometrik","Tingkatan 1","Guru B&K","Dijadualkan"],["22/11/2026","Ziarah Cakna","Keluarga murid 2 Cekal","Pasukan HEM","Dirancang"]]},
+ kaunseling:{title:"Bimbingan & Kaunseling",desc:"Rekod sesi, saringan psikometrik dan intervensi Ziarah Cakna.",subs:submenus.kaunseling,headers:["Tarikh","Nama Murid","Kategori","Kelas","Pegawai","Status"],rows:[["19/11/2026","Sesi individu","Tingkatan 3","Guru B&K","Selesai"],["20/11/2026","Saringan psikometrik","Tingkatan 1","Guru B&K","Dijadualkan"],["22/11/2026","Ziarah Cakna","Keluarga murid 2 Cekal","Pasukan HEM","Dirancang"]]},
  "3k":{title:"Keselamatan, Kesihatan & Kebersihan (3K)",desc:"Pemantauan kesihatan, keselamatan persekitaran dan kebersihan.",subs:submenus["3k"],headers:["Tarikh","Komponen","Lokasi","Dapatan","Status"],rows:[["19/11/2026","Kesihatan","Bilik Isolasi","5 murid dipantau","Dalam pemantauan"],["18/11/2026","Denggi","Blok B","1 lokasi berisiko","Tindakan"],["17/11/2026","Keselamatan","Blok Akademik","Pemeriksaan alat pemadam api","Selesai"]]},
  kantin:{title:"Kantin & Asrama",desc:"Pemantauan kendiri kantin, kualiti makanan dan pengurusan asrama.",subs:submenus.kantin,headers:["Tarikh","Komponen","Penyelia","Skor / Dapatan","Status"],rows:[["19/11/2026","Kebersihan kantin","Penyelia Kantin","92 / 100","Baik"],["18/11/2026","Kualiti makanan","Jawatankuasa Kantin","Menu mematuhi","Selesai"],["17/11/2026","Asrama","Warden bertugas","2 aduan penyelenggaraan","Tindakan"]]},
  pibg:{title:"Pemuafakatan PIBG / Sarana",desc:"Jaringan ibu bapa, komuniti dan agensi luar untuk menyokong murid.",subs:submenus.pibg,headers:["Nama / Organisasi","Peranan","Telefon","Penglibatan","Status"],rows:[["Yang Dipertua PIBG","Penasihat","04-000 0000","Mesyuarat PIBG","Aktif"],["Pejabat Pendidikan Daerah","Agensi pendidikan","04-000 0001","Bimbingan akademik","Aktif"],["Klinik Kesihatan","Agensi kesihatan","04-000 0002","Program kesihatan","Aktif"]]}
@@ -333,13 +399,127 @@ function tablePage(page,sub){
  let chosen=sub||cfg.subs[0];
  let rows=cfg.rows;
  let isStudent=page==="murid";
- return `${head(cfg.title,cfg.desc)}<div class="subnav">${cfg.subs.map(s=>`<button class="${s===chosen?"active":""}" onclick="changeSub('${page}','${s}')">${s}</button>`).join("")}</div><div class="notice">Paparan prototaip · Modul <b>${chosen}</b>. Data contoh dipaparkan untuk demonstrasi aliran kerja dan bukan rekod rasmi APDM / SSDM.</div><div class="card">${cardTitle(chosen,isStudent?"Senarai contoh murid berdaftar":"Ringkasan rekod dan status terkini","DATA CONTOH")}<div class="toolbar"><input class="field" id="tableSearch" placeholder="Cari nama, kelas atau rekod..." oninput="filterTable()"><select class="field" id="filterSelect" onchange="filterTable()"><option value="">Semua rekod</option>${(isStudent?["Aktif","Dalam pemantauan","Berpindah"]:["Selesai","Dalam tindakan","Siasatan","Aktif"]).map(x=>`<option>${x}</option>`).join("")}</select><button class="btn secondary" onclick="alert('Fungsi tambah rekod ialah simulasi prototaip.')">＋ Tambah rekod</button><button class="btn secondary" onclick="alert('Data contoh sedia untuk dieksport dalam versi integrasi.')">⇩ Eksport</button></div><div class="table-wrap"><table id="dataTable"><thead><tr>${cfg.headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i===r.length-1?statusPill(v):v}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:12px"><span id="rowCount">Memaparkan ${rows.length} rekod contoh</span><span>Halaman 1 daripada 1</span></div></div>`;
+ let isDisciplineRecords=page==="disiplin" && chosen==="Rekod Salah Laku";
+ let isUBKRecords=page==="kaunseling" && chosen==="Sesi Kaunseling";
+ if(isDisciplineRecords || isUBKRecords) rows=[];
+ return `${head(cfg.title,cfg.desc)}<div class="subnav">${cfg.subs.map(s=>`<button class="${s===chosen?"active":""}" onclick="changeSub('${page}','${s}')">${s}</button>`).join("")}</div>${isDisciplineRecords?'<div class="notice" id="disiplinRecordNote">Memuatkan rekod rasmi daripada tab Disiplin...</div>':isUBKRecords?'<div class="notice" id="ubkRecordNote">Memuatkan rekod rasmi daripada tab UBK...</div>':`<div class="notice">Paparan prototaip · Modul <b>${chosen}</b>. Data contoh dipaparkan untuk demonstrasi aliran kerja dan bukan rekod rasmi APDM / SSDM.</div>`}<div class="card">${cardTitle(chosen,isStudent?"Senarai contoh murid berdaftar":"Ringkasan rekod dan status terkini",isDisciplineRecords?"DATA GOOGLE SHEETS":"DATA CONTOH")}<div class="toolbar"><input class="field" id="tableSearch" placeholder="Cari nama, kelas atau rekod..." oninput="filterTable()"><select class="field" id="filterSelect" onchange="filterTable()"><option value="">Semua rekod</option>${(isStudent?["Aktif","Dalam pemantauan","Berpindah"]:["Selesai","Dalam tindakan","Siasatan","Aktif"]).map(x=>`<option>${x}</option>`).join("")}</select>${isDisciplineRecords?'<button class="btn secondary" onclick="loadDisiplinRecords()">↻ Segar semula</button><button class="btn secondary" onclick="exportDisiplinRecords()">⇩ Eksport CSV</button>':isUBKRecords?'<button class="btn secondary" onclick="loadUBKRecords()">↻ Segar semula</button><button class="btn secondary" onclick="exportUBKRecords()">⇩ Eksport CSV</button>':'<button class="btn secondary" onclick="alert(\'Fungsi tambah rekod ialah simulasi prototaip.\')">＋ Tambah rekod</button><button class="btn secondary" onclick="alert(\'Data contoh sedia untuk dieksport dalam versi integrasi.\')">⇩ Eksport</button>'}</div><div class="table-wrap"><table id="dataTable"><thead><tr>${cfg.headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i===r.length-1?statusPill(v):v}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:12px"><span id="rowCount">Memaparkan ${rows.length} rekod contoh</span><span id="pageCount">${(isDisciplineRecords||isUBKRecords)?"Data langsung":"Halaman 1 daripada 1"}</span></div></div>`;
 }
-function statusPill(v){let s=String(v).toLowerCase(),c=(s.includes("selesai")||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
+let ubkRecordsCache = [];
+let ubkRecordsLoading = false;
+function loadUBKRecords(){
+  if(ubkRecordsLoading)return;
+  ubkRecordsLoading=true;
+  const note=document.getElementById('ubkRecordNote');
+  if(note)note.textContent='Sedang mengambil rekod daripada tab UBK...';
+  const cb='hemUBKRecordsCallback_'+Date.now(),script=document.createElement('script');
+  let done=false;
+  const finish=()=>{if(done)return;done=true;ubkRecordsLoading=false;delete window[cb];script.remove();};
+  window[cb]=data=>{
+    try{
+      if(!data||!data.success)throw new Error(data&&data.error?data.error:'Respons API tidak sah.');
+      ubkRecordsCache=Array.isArray(data.records)?data.records:[];
+      renderUBKRecordsTable();
+      if(note)note.textContent=`Data berjaya dimuatkan daripada tab UBK · ${data.total||0} rekod · Dikemas kini ${data.dikemasKini||'—'}`;
+    }catch(err){if(note)note.textContent='Ralat memuatkan rekod UBK: '+err.message;}
+    finally{finish();}
+  };
+  script.onerror=()=>{if(note)note.textContent='Gagal menghubungi GAS. Pastikan API hemUBKRecords telah dideploy.';finish();};
+  script.src=GAS_URL+(GAS_URL.includes('?')?'&':'?')+'api=hemUBKRecords&callback='+encodeURIComponent(cb)+'&_='+Date.now();
+  document.body.appendChild(script);
+}
+function renderUBKRecordsTable(){
+  const tbody=document.querySelector('#dataTable tbody');if(!tbody)return;
+  const rows=ubkRecordsCache,filter=document.getElementById('filterSelect');
+  if(filter){
+    const current=filter.value,statuses=[...new Set(rows.map(r=>String(r.status||'').trim()).filter(Boolean))];
+    filter.innerHTML='<option value="">Semua rekod</option>'+statuses.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join('');
+    if(statuses.includes(current))filter.value=current;
+  }
+  tbody.innerHTML=rows.map(r=>`<tr><td>${escapeHTML(r.tarikh)}</td><td>${escapeHTML(r.nama||'—')}</td><td>${escapeHTML(r.kategori||'')}</td><td>${escapeHTML(r.kelas||'')}</td><td>${escapeHTML(r.guru||'Belum ditetapkan')}</td><td>${statusPill(escapeHTML(r.status))}</td></tr>`).join('');
+  const count=document.getElementById('rowCount');if(count)count.textContent=`Memaparkan ${rows.length} rekod UBK`;
+  const page=document.getElementById('pageCount');if(page)page.textContent=`Jumlah ${rows.length} rekod`;
+  filterTable();
+}
+function exportUBKRecords(){
+  if(!ubkRecordsCache.length){alert('Tiada rekod UBK untuk dieksport.');return;}
+  const lines=[['Tarikh','Nama Murid','Kategori','Kelas','Guru UBK Bertanggungjawab','Status Kes'],...ubkRecordsCache.map(r=>[r.tarikh,r.nama,r.kategori,r.kelas,r.guru,r.status])];
+  const csv='\\uFEFF'+lines.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\\r\\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='Rekod_UBK.csv';a.click();URL.revokeObjectURL(a.href);
+}
+
+let disiplinRecordsCache = [];
+let disiplinRecordsLoading = false;
+
+function loadDisiplinRecords(){
+  if(disiplinRecordsLoading) return;
+  disiplinRecordsLoading = true;
+  const note=document.getElementById('disiplinRecordNote');
+  if(note) note.textContent='Sedang mengambil rekod daripada tab Disiplin...';
+  const cb='hemDisiplinRecordsCallback_'+Date.now();
+  const script=document.createElement('script');
+  let done=false;
+  const finish=()=>{
+    if(done)return; done=true; disiplinRecordsLoading=false;
+    delete window[cb]; script.remove();
+  };
+  window[cb]=data=>{
+    try{
+      if(!data || !data.success) throw new Error(data && data.error ? data.error : 'Respons API tidak sah.');
+      disiplinRecordsCache=Array.isArray(data.records)?data.records:[];
+      renderDisiplinRecordsTable();
+      if(note) note.textContent=`Data berjaya dimuatkan daripada tab Disiplin · ${data.total||0} rekod · Dikemas kini ${data.dikemasKini||'—'}`;
+    }catch(err){if(note)note.textContent='Ralat memuatkan rekod: '+err.message;}
+    finally{finish();}
+  };
+  script.onerror=()=>{if(note)note.textContent='Gagal menghubungi GAS. Pastikan API hemDisiplinRecords telah dideploy.';finish();};
+  script.src=GAS_URL+(GAS_URL.includes('?')?'&':'?')+'api=hemDisiplinRecords&callback='+encodeURIComponent(cb)+'&_='+Date.now();
+  document.body.appendChild(script);
+}
+
+function renderDisiplinRecordsTable(){
+  const tbody=document.querySelector('#dataTable tbody');
+  if(!tbody)return;
+  const rows=disiplinRecordsCache;
+  const filter=document.getElementById('filterSelect');
+  if(filter){
+    const current=filter.value;
+    const statuses=[...new Set(rows.map(r=>String(r.status||'').trim()).filter(Boolean))];
+    filter.innerHTML='<option value="">Semua rekod</option>'+statuses.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join('');
+    if(statuses.includes(current)) filter.value=current;
+  }
+  tbody.innerHTML=rows.map(r=>`<tr>
+    <td>${escapeHTML(r.tarikh)}</td>
+    <td>${escapeHTML(r.nama)}</td>
+    <td>${escapeHTML([r.tingkatan,r.kelas].filter(Boolean).join(' · '))}</td>
+    <td>${escapeHTML(r.kategori)}</td>
+    <td>${statusPill(escapeHTML(r.status))}</td>
+  </tr>`).join('');
+  const count=document.getElementById('rowCount');
+  if(count)count.textContent=`Memaparkan ${rows.length} rekod sebenar`;
+  const page=document.getElementById('pageCount');
+  if(page)page.textContent=`Jumlah ${rows.length} rekod`;
+  filterTable();
+}
+
+function escapeHTML(value){
+  return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+function exportDisiplinRecords(){
+  if(!disiplinRecordsCache.length){alert('Tiada rekod untuk dieksport.');return;}
+  const headers=['Tarikh','Nama Murid','Tingkatan','Kelas','Kategori','Status'];
+  const lines=[headers,...disiplinRecordsCache.map(r=>[r.tarikh,r.nama,r.tingkatan,r.kelas,r.kategori,r.status])];
+  const csv='\\uFEFF'+lines.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\\r\\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Rekod_Salah_Laku.csv';a.click();URL.revokeObjectURL(a.href);
+}
+
+function statusPill(v){let s=String(v).toLowerCase().trim(),c=(s==="selesai"||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("belum selesai")||s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
 function reports(){return `${head("Laporan & Analisis","Penjanaan laporan eksekutif untuk pemantauan dan mesyuarat pengurusan.")}<div class="grid report-grid">${[["Laporan Kehadiran","Analisis kehadiran mengikut tingkatan, kelas dan tempoh.","▣"],["Laporan Disiplin SSDM","Ringkasan salah laku, amalan baik dan status intervensi.","⚑"],["Laporan Kebajikan","Status agihan BAP, KWAMP, SPBT, RMT dan biasiswa.","♡"],["Laporan 3K","Kesihatan, keselamatan, kebersihan dan tindakan susulan.","✚"],["Laporan Kaunseling","Sesi kaunseling, psikometrik dan Ziarah Cakna.","☏"],["Laporan Eksekutif HEM","Ringkasan KPI utama untuk pembentangan pengurusan.","▤"]].map(x=>`<div class="card report-tile"><div class="kpi-icon blue" style="margin-bottom:13px">${x[2]}</div><h3>${x[0]}</h3><p>${x[1]}</p><button class="btn secondary" onclick="generateReport('${x[0]}','pdf')">Jana PDF ↗</button> <button class="btn secondary" onclick="generateReport('${x[0]}','excel')">Excel ↗</button></div>`).join("")}</div><div class="card section-card">${cardTitle("Prestasi KPI HEM","Pencapaian indikator utama sekolah bagi sesi 2026/2027.")}${[["Kehadiran murid","94.2% daripada sasaran 95%",94.2],["Penyelesaian agihan SPBT","98.4%",98.4],["Pengesahan BAP","96.6%",96.6],["Tindakan kes disiplin","75% kes selesai",75]].map(x=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]}</span></div><div class="progress"><i style="width:${x[2]}%"></i></div></div>`).join("")}</div>`}
-function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts();if(hemDashboardData)updateHemDashboard(hemDashboardData)}else if(currentPage==="murid"){c.innerHTML=profileModulePage()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){if(currentSub==="Analisis Bulanan"){c.innerHTML=monthlyAnalysisPage();loadMonthlyAnalysis(document.getElementById("monthlyPicker").value)}else{c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}}else c.innerHTML=tablePage(currentPage,currentSub)}
+function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="murid"){c.innerHTML=profileModulePage()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){if(currentSub==="Analisis Bulanan"){c.innerHTML=monthlyAnalysisPage();loadMonthlyAnalysis(document.getElementById("monthlyPicker").value)}else{c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}}else {c.innerHTML=tablePage(currentPage,currentSub);if(currentPage==="disiplin" && (currentSub||submenus.disiplin[0])==="Rekod Salah Laku") loadDisiplinRecords();if(currentPage==="kaunseling" && (currentSub||submenus.kaunseling[0])==="Sesi Kaunseling") loadUBKRecords();}}
 function changeSub(p,s){currentSub=s;render()}
-function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod contoh`}
+function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod`}
 function generateReport(name,type){let text=`${name}\nSM Sains Sultan Mohamad Jiwa\nTarikh: 19 November 2026\n\nLaporan ini ialah simulasi prototaip Dashboard HEM.\nJumlah murid: 1,428\nKehadiran: 94.2%\nKes disiplin aktif: 12\nPenerima bantuan: 386\n`;let blob=new Blob([text],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name.replaceAll(" ","_")+(type==="pdf"?".txt (simulasi PDF).txt":".csv");a.click();URL.revokeObjectURL(a.href);alert(`Simulasi eksport ${type.toUpperCase()} dijalankan. Untuk fail PDF/Excel sebenar, sambungkan modul penjanaan dokumen.`)}
 document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>{currentPage=b.dataset.page;currentSub="";render();document.getElementById("sidebar").classList.remove("open")}));
 document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
