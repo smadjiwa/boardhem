@@ -1,134 +1,45 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard HEM | SMadJiwa</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!doctype html>
+<html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard HEM | SMadJiwa</title><script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{--bg:#0b1220;--panel:#111c2e;--panel2:#162338;--line:#26364d;--muted:#91a2b9;--text:#edf3fb;--blue:#4f8cff;--cyan:#37c6e8;--green:#20c997;--amber:#f5b942;--red:#f16b75;--purple:#a78bfa}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:13px}button,input,select{font:inherit}button{cursor:pointer}
-.app{display:flex;min-height:100vh}.sidebar{width:258px;background:#0e1929;border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0;overflow:auto;z-index:20;transition:.25s}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 23px;border-bottom:1px solid var(--line);margin-bottom:18px}.brand-mark{width:46px;height:46px;flex:none;border-radius:12px;background:#fff;display:grid;place-items:center;padding:4px;overflow:hidden;box-shadow:0 8px 22px #0004}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain}.brand strong{display:block;font-size:13px;letter-spacing:.2px}.brand small{color:var(--muted);font-size:10px}.nav-label{color:#667b98;font-size:10px;font-weight:800;letter-spacing:1.3px;padding:14px 12px 7px;text-transform:uppercase}.nav-btn{width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border:0;background:transparent;color:#9eafc6;text-align:left;border-radius:9px;margin:2px 0;font-weight:600;font-size:12px;transition:.2s}.nav-btn:hover{background:#1b2a40;color:white}.nav-btn.active{background:#1b3a66;color:#fff;box-shadow:inset 3px 0 var(--blue)}.nav-icon{width:18px;text-align:center;font-size:15px}.nav-count{margin-left:auto;color:#f8c45b;background:#493b20;padding:3px 7px;border-radius:20px;font-size:10px}.side-foot{margin:25px 8px 0;padding:13px;background:#14243a;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:10px;line-height:1.6}.main{margin-left:258px;width:calc(100% - 258px);min-width:0}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#0d1726;position:sticky;top:0;z-index:10}.school-title{font-size:13px;font-weight:800;letter-spacing:.2px}.school-sub{color:var(--muted);font-size:10px;margin-top:4px}.top-actions{display:flex;align-items:center;gap:13px}.search{position:relative}.search input{width:225px;background:#142238;border:1px solid var(--line);border-radius:9px;padding:10px 12px 10px 34px;color:white;outline:none}.search span{position:absolute;left:12px;top:9px;color:#8194af}.profile{display:flex;align-items:center;gap:9px;padding-left:13px;border-left:1px solid var(--line)}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#244b78;color:#d9ebff;font-weight:800}.profile b{display:block;font-size:11px}.profile small{color:var(--muted);font-size:10px}.mobile-menu{display:none;background:transparent;color:white;border:0;font-size:21px}.content{padding:27px 30px 38px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:12px}.eyebrow{color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:7px}.page-head h1{font-size:23px;margin:0 0 5px;letter-spacing:-.7px}.page-head p{color:var(--muted);margin:0;font-size:11px}.date-chip{background:#142238;border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:#b7c6da;font-size:11px;white-space:nowrap}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(145deg,#142137,#101b2c);border:1px solid var(--line);border-radius:13px;padding:17px;min-width:0;box-shadow:0 7px 22px #00000012}.kpi-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:10px;font-weight:700}.kpi-icon{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;font-size:15px}.blue{background:#1c3a63;color:#78aaff}.green{background:#123e39;color:#50ddb6}.amber{background:#44371f;color:#ffd06a}.red{background:#482731;color:#ff8993}.purple{background:#332b56;color:#c2adff}.kpi-value{font-size:26px;font-weight:800;letter-spacing:-1px;margin:13px 0 4px}.kpi-foot{font-size:10px;color:var(--muted)}.kpi-foot strong{color:var(--green)}.charts{grid-template-columns:1.55fr 1fr 1fr;margin-bottom:15px}.card-title{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px}.card-title h3{margin:0;font-size:12px}.card-title p{margin:5px 0 0;color:var(--muted);font-size:10px}.tag{font-size:9px;color:#9eb2ce;background:#1b2b42;padding:5px 8px;border-radius:20px}.chart-wrap{height:205px;position:relative}.donuts{display:grid;grid-template-columns:1fr 1fr;gap:9px}.donut-item{text-align:center;min-width:0}.donut-item .chart-wrap{height:132px}.donut-item b{font-size:10px}.donut-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.bottom{grid-template-columns:1fr 1fr 1fr}.panel-list{display:flex;flex-direction:column;gap:10px}.list-row{display:flex;gap:10px;align-items:flex-start;padding-bottom:10px;border-bottom:1px solid #223148}.list-row:last-child{border:0;padding-bottom:0}.dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex:none}.list-row b{font-size:10px;display:block;margin-bottom:4px}.list-row small{font-size:9px;color:var(--muted);line-height:1.5}.task{display:flex;gap:9px;align-items:flex-start}.task input{accent-color:var(--green);margin-top:2px}.task.done b{text-decoration:line-through;color:#6f829d}.task b{font-size:10px}.task small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.activity-time{font-size:9px;color:var(--cyan);white-space:nowrap;margin-left:auto}.section-card{margin-top:15px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}.field{background:#0e1929;border:1px solid var(--line);border-radius:8px;color:#e8f0fa;padding:9px 11px;outline:none;min-width:150px}.btn{border:0;border-radius:8px;padding:9px 13px;background:var(--blue);color:white;font-weight:700;font-size:10px}.btn.secondary{background:#20334d;color:#c7d6e9;border:1px solid #30445f}.btn.success{background:#147b64}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:650px}th{text-align:left;color:#91a5c1;background:#17263b;font-size:9px;letter-spacing:.5px;text-transform:uppercase;padding:12px 13px}td{padding:12px 13px;border-top:1px solid #223148;font-size:10px;color:#d7e2f1}tr:hover td{background:#16243a}.pill{display:inline-block;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:700}.pill.ok{background:#123c36;color:#58d9b5}.pill.warn{background:#46371d;color:#ffd06a}.pill.danger{background:#482630;color:#ff8c98}.pill.info{background:#1c385c;color:#83b5ff}.empty-note{padding:30px;text-align:center;color:var(--muted)}.report-grid{grid-template-columns:repeat(3,1fr)}.report-tile{padding:18px}.report-tile h3{font-size:12px;margin:0 0 7px}.report-tile p{color:var(--muted);font-size:10px;line-height:1.6}.report-tile .btn{margin-top:9px}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}.subnav button{background:#142238;border:1px solid var(--line);color:#9fb1c9;border-radius:20px;padding:7px 12px;font-size:10px}.subnav button.active{background:#1d4778;color:white;border-color:#3978c2}.notice{padding:12px 14px;border-radius:9px;background:#152944;border:1px solid #29486c;color:#b9d6f6;font-size:10px;margin-bottom:14px}.progress-row{margin:14px 0}.progress-meta{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}.progress-meta span:last-child{color:var(--muted)}.progress{height:7px;background:#26364d;border-radius:10px;overflow:hidden}.progress i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#397ee8,#37c6e8)}.hidden{display:none!important}
-@media(max-width:1150px){.kpis{grid-template-columns:repeat(3,1fr)}.charts{grid-template-columns:1fr 1fr}.charts .wide{grid-column:span 2}.bottom{grid-template-columns:1fr 1fr}.bottom .last{grid-column:span 2}}
-@media(max-width:760px){.sidebar{transform:translateX(-100%);box-shadow:20px 0 40px #0008}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.mobile-menu{display:block}.topbar{padding:0 15px;height:65px}.school-title{font-size:11px}.school-sub{font-size:9px}.search input{width:145px}.profile .profile-text{display:none}.content{padding:20px 14px}.page-head h1{font-size:20px}.kpis{grid-template-columns:repeat(2,1fr)}.charts,.bottom{grid-template-columns:1fr}.charts .wide,.bottom .last{grid-column:auto}.report-grid{grid-template-columns:1fr 1fr}.date-chip{display:none}}
-@media(max-width:420px){.search{display:none}.kpi-value{font-size:23px}.report-grid{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<div class="app">
-<aside class="sidebar" id="sidebar">
- <div class="brand"><div class="brand-mark"><img src="https://mylink.la/storage/avatars/a7/51148-a7263e64de7d87e7.png" alt="Logo rasmi SM Sains Sultan Mohamad Jiwa" onerror="this.style.display='none';this.parentElement.textContent='SM';this.parentElement.style.color='#17365d';this.parentElement.style.fontWeight='800'"></div><div><strong>DASHBOARD HEM</strong><small>SM Sains Sultan Mohamad Jiwa</small></div></div>
- <div class="nav-label">Menu utama</div>
- <button class="nav-btn active" data-page="dashboard"><span class="nav-icon">▦</span>Laman Utama</button>
- <button class="nav-btn" data-page="murid"><span class="nav-icon">♙</span>Profil & Data Murid</button>
- <button class="nav-btn" data-page="kehadiran"><span class="nav-icon">◷</span>Kehadiran & APDM</button>
- <button class="nav-btn" data-page="disiplin"><span class="nav-icon">⚑</span>Disiplin & SSDM <span class="nav-count">12</span></button>
- <button class="nav-btn" data-page="bantuan"><span class="nav-icon">♡</span>Kebajikan & Bantuan</button>
- <button class="nav-btn" data-page="kaunseling"><span class="nav-icon">☏</span>Bimbingan & Kaunseling</button>
- <button class="nav-btn" data-page="3k"><span class="nav-icon">✚</span>Keselamatan, Kesihatan & 3K</button>
- <button class="nav-btn" data-page="kantin"><span class="nav-icon">⌂</span>Kantin & Asrama</button>
- <button class="nav-btn" data-page="pibg"><span class="nav-icon">♧</span>PIBG / Sarana</button>
- <div class="nav-label">Pengurusan</div>
- <button class="nav-btn" data-page="laporan"><span class="nav-icon">▤</span>Laporan & Analisis</button>
- <div class="side-foot"> <b style="color:#dce9f8">SM SAINS SULTAN MOHAMAD JIWA</b><br>Kedah Darul Aman · Sesi 2026/2027<br><span style="color:#36cda5">● Sistem beroperasi</span></div>
-</aside>
-<main class="main">
-<header class="topbar">
- <div style="display:flex;align-items:center;gap:12px"><button class="mobile-menu" id="menuBtn">☰</button><div><div class="school-title">SEKOLAH MENENGAH SAINS SULTAN MOHAMAD JIWA</div><div class="school-sub">Sistem Pengurusan Hal Ehwal Murid · Kedah</div></div></div>
- <div class="top-actions"><div class="search"><span>⌕</span><input id="globalSearch" placeholder="Carian pantas..."></div><div class="profile"><div class="avatar">GH</div><div class="profile-text"><b>GPK HEM</b><small>Pentadbir sistem ▾</small></div></div></div>
-</header>
-<div class="content" id="content"></div>
-</main>
-</div>
+:root{--bg:#0b1220;--panel:#142137;--line:#26364d;--text:#edf3fb;--muted:#91a8c5;--blue:#4f8cff;--green:#20c997;--amber:#f5b942;--red:#f16b75}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}.wrap{max-width:1500px;margin:auto;padding:26px}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.logo{width:48px;height:48px;object-fit:contain;background:white;border-radius:10px;padding:4px}.eyebrow{color:#22c8e8;font-size:10px;font-weight:800;letter-spacing:1.2px}.head h1{font-size:23px;margin:6px 0}.muted{color:var(--muted);font-size:11px}.btn{background:#1b3658;border:1px solid #355274;color:#e1efff;border-radius:8px;padding:10px 13px;cursor:pointer}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(3,1fr);margin-bottom:15px}.charts{grid-template-columns:1.5fr 1fr}.card{background:linear-gradient(145deg,#142137,#101b2c);border:1px solid var(--line);border-radius:13px;padding:18px;min-width:0}.label{font-size:11px;color:var(--muted);font-weight:700}.value{font-size:31px;font-weight:800;margin:13px 0 5px}.chartbox{height:300px}.title{font-size:13px;font-weight:800;margin-bottom:6px}.desc{font-size:10px;color:var(--muted);margin-bottom:15px}.status{font-size:10px;color:var(--muted);margin-top:12px}.error{color:#ff9aa4}@media(max-width:800px){.wrap{padding:15px}.kpis,.charts{grid-template-columns:1fr}.head{align-items:flex-start}.head .btn{font-size:0}.chartbox{height:260px}}
+</style></head><body><main class="wrap">
+<header class="head"><div class="brand"><img class="logo" src="https://mylink.la/storage/avatars/a7/51148-a7263e64de7d87e7.png" alt="Logo sekolah" onerror="this.style.display='none'"><div><div class="eyebrow">PENGURUSAN HAL EHWAL MURID</div><h1>Ringkasan Eksekutif HEM</h1><div class="muted">SEKOLAH MENENGAH SAINS SULTAN MOHAMAD JIWA · KEDAH</div></div></div><button class="btn" id="refresh">↻ Kemas kini</button></header>
+<section class="grid kpis">
+<div class="card"><div class="label">Jumlah Murid</div><div class="value" id="total">—</div><div class="muted" id="gender">Lelaki — · Perempuan —</div></div>
+<div class="card"><div class="label">Kehadiran Hari Ini</div><div class="value" id="attendance">—</div><div class="muted" id="attendanceHint">Memuatkan...</div></div>
+<div class="card"><div class="label">Murid 3K / Sakit</div><div class="value" id="sick">—</div><div class="muted">Hospital · MC · Rawatan · MC-PBM</div></div></section>
+<section class="grid charts"><div class="card"><div class="title">Analisis Kehadiran Mengikut Tingkatan</div><div class="desc">Jumlah hadir ÷ jumlah murid setiap tingkatan. Garis sasaran 95%.</div><div class="chartbox"><canvas id="chart"></canvas></div><div class="status" id="chartStatus"></div></div>
+<div class="card"><div class="title">Status Data</div><div class="desc">Sumber: Daftar, HadirKelas dan Kehadiran.</div><div class="value" style="font-size:22px" id="date">—</div><div class="muted">Tarikh data</div><div class="status" id="updated">Belum dikemas kini</div><div class="status" id="note"></div></div></section>
+<p class="muted">Paparan agregat sahaja. Maklumat peribadi murid tidak dihantar ke laman GitHub Pages.</p></main>
 <script>
-const menuNames={dashboard:"Laman Utama",murid:"Profil & Data Murid",kehadiran:"Kehadiran & APDM",disiplin:"Disiplin & SSDM",bantuan:"Kebajikan & Bantuan",kaunseling:"Bimbingan & Kaunseling","3k":"Keselamatan, Kesihatan & Kebersihan (3K)",kantin:"Kantin & Asrama",pibg:"Pemuafakatan PIBG / Sarana",laporan:"Laporan & Analisis"};
-const submenus={
-murid:["Senarai Induk Murid","Pendaftaran & Pertukaran","Data Keciciran"],
-kehadiran:["Rekod Harian","Analisis Bulanan","Ponteng Tegar","Status Penghantaran Kelas"],
-disiplin:["Rekod Salah Laku","Rekod Amalan Baik","Kes Berat & Pengawas"],
-bantuan:["BAP","KWAMP & Biasiswa","SPBT","RMT & Takaful"],
-kaunseling:["Sesi Kaunseling","Ujian Psikometrik","Ziarah Cakna"],
-"3k":["Kesihatan & Imunisasi","Denggi","Latihan Kecemasan","Bilik Isolasi"],
-kantin:["Laporan Kendiri Kantin","Pemantauan Kualiti","Pengurusan Asrama"],
-pibg:["Direktori AJK","Kehadiran Sarana","Kerjasama Agensi Luar"]
-};
-const students=[
-["SM26001","Aiman Hakim bin Azman","1 Amanah","L","Aktif"],["SM26002","Nur Aisyah binti Rahman","1 Bestari","P","Aktif"],["SM25018","Muhammad Danish bin Zulkifli","2 Cekal","L","Aktif"],["SM25031","Siti Nur Balqis binti Ismail","2 Dinamik","P","Aktif"],["SM24009","Adam Firdaus bin Hassan","3 Amanah","L","Aktif"],["SM24042","Nur Izzati binti Omar","3 Bestari","P","Dalam pemantauan"],["SM23015","Harith Iman bin Rosli","4 Cekal","L","Aktif"],["SM23028","Nurul Huda binti Yusof","4 Dinamik","P","Aktif"],["SM22007","Amirul Syafiq bin Karim","5 Amanah","L","Aktif"],["SM22033","Puteri Balqis binti Azmi","5 Bestari","P","Aktif"],["SM26044","Danish Arif bin Saad","1 Cekal","L","Berpindah"],["SM24061","Nur Maisarah binti Ali","3 Dinamik","P","Aktif"]
-];
-let currentPage="dashboard",currentSub="",charts=[];
-const fmt=n=>n.toLocaleString("ms-MY");
-function head(title,desc){return `<div class="page-head"><div><div class="eyebrow">Pengurusan Hal Ehwal Murid</div><h1>${title}</h1><p>${desc}</p></div><div class="date-chip">◷ &nbsp; Khamis, 19 November 2026</div></div>`}
-function cardTitle(t,s,tag=""){return `<div class="card-title"><div><h3>${t}</h3><p>${s}</p></div>${tag?`<span class="tag">${tag}</span>`:""}</div>`}
-function dashboard(){return `${head("Ringkasan Eksekutif HEM","Pantauan menyeluruh status murid, kebajikan, disiplin dan keselamatan sekolah.")}<div class="grid kpis">
-${kpi("Jumlah Murid","1,428","Lelaki 712 · Perempuan 716","♙","blue","+ 12 murid berbanding tahun lalu")}
-${kpi("Kehadiran Hari Ini","94.2%","1,345 hadir · 83 tidak hadir","◷","green","- 0.8% daripada sasaran 95%")}
-${kpi("Kes Disiplin Aktif","12","3 kes perlu tindakan segera","⚑","red","4 kes baharu minggu ini")}
-${kpi("Penerima Bantuan","386","BAP, KWAMP, biasiswa & RMT","♡","amber","27 permohonan dalam semakan")}
-${kpi("Murid 3K / Sakit","8","5 sakit · 2 kesihatan · 1 keselamatan","✚","purple","2 tindakan susulan diperlukan")}
-</div>
-<div class="grid charts">
-<div class="card wide">${cardTitle("Analisis Kehadiran Mengikut Tingkatan","Peratus kehadiran harian berbanding garis sasaran 95%.","HARI INI")}<div class="chart-wrap"><canvas id="attendanceChart"></canvas></div></div>
-<div class="card">${cardTitle("Agihan Kebajikan & Bantuan","Kemajuan agihan mengikut skim.","STATUS")}<div id="aidBars"></div></div>
-<div class="card">${cardTitle("Disiplin & Sahsiah","Taburan rekod salah laku dan amalan baik.","TAHUN 2026")}<div class="donuts"><div class="donut-item"><div class="chart-wrap"><canvas id="disciplineChart"></canvas></div><b>Kes Salah Laku</b><small>42 rekod direkodkan</small></div><div class="donut-item"><div class="chart-wrap"><canvas id="goodChart"></canvas></div><b>Amalan Baik</b><small>186 rekod direkodkan</small></div></div></div>
-</div>
-<div class="grid bottom">
-<div class="card">${cardTitle("Makluman Keselamatan & Kesihatan","Pemantauan 3K dan tindakan berisiko.")}<div class="panel-list">
-${row("red","Kes demam berkelompok","Blok B · 3 murid dipantau di bilik isolasi","08:40 pagi")}
-${row("amber","Pemeriksaan perangkap nyamuk","Dapatan jentik-jentik di kawasan belakang kantin","Semalam")}
-${row("green","Pemeriksaan alat pemadam api","Blok akademik selesai diperiksa","17 Nov")}
-</div></div>
-<div class="card">${cardTitle("Tugas / Tindakan Segera","Tandakan tugasan setelah selesai.","3 TUGAS")}<div class="panel-list">
-${task("Semak penghantaran kehadiran APDM kelas 5","Guru tingkatan · Sebelum 10:00 pagi",false)}
-${task("Pengesahan senarai penerima KWAMP","Penyelaras bantuan · 20 Nov 2026",false)}
-${task("Kemas kini laporan kes SSDM","Setiausaha disiplin · 21 Nov 2026",true)}
-${task("Semakan stok buku teks SPBT","Penyelaras SPBT · 24 Nov 2026",false)}
-</div></div>
-<div class="card last">${cardTitle("Pemberitahuan Aktiviti HEM","Jadual program dan aktiviti terdekat.")}<div class="panel-list">
-${event("22 NOV","Program Ziarah Cakna","Lawatan keluarga murid 2 Cekal")}
-${event("25 NOV","Latihan Kebakaran","Semua warga sekolah · 10:00 pagi")}
-${event("28 NOV","Mesyuarat Jawatankuasa HEM","Bilik Mesyuarat Utama · 2:30 petang")}
-</div></div></div>`}
-function kpi(t,v,sub,ic,color,foot){return `<div class="card"><div class="kpi-top">${t}<span class="kpi-icon ${color}">${ic}</span></div><div class="kpi-value">${v}</div><div class="kpi-foot">${sub}</div><div class="kpi-foot" style="margin-top:9px">${foot}</div></div>`}
-function row(c,t,d,time){return `<div class="list-row"><i class="dot" style="background:var(--${c})"></i><div style="flex:1"><b>${t}</b><small>${d}</small></div><span class="activity-time">${time}</span></div>`}
-function task(t,d,done){return `<label class="task ${done?"done":""}"><input type="checkbox" ${done?"checked":""} onchange="this.parentElement.classList.toggle('done',this.checked)"><span><b>${t}</b><small>${d}</small></span></label>`}
-function event(date,t,d){return `<div class="list-row"><div style="background:#1b385b;color:#8cbaff;border-radius:8px;padding:7px 6px;text-align:center;min-width:49px;font-size:9px;font-weight:800">${date}</div><div><b>${t}</b><small>${d}</small></div></div>`}
-function setupCharts(){
- charts.forEach(c=>c.destroy());charts=[];
- if(document.getElementById("attendanceChart")){charts.push(new Chart(document.getElementById("attendanceChart"),{type:"bar",data:{labels:["Tingkatan 1","Tingkatan 2","Tingkatan 3","Tingkatan 4","Tingkatan 5"],datasets:[{label:"Kehadiran",data:[96.1,94.8,92.7,95.4,92.2],backgroundColor:["#4f8cff","#4f8cff","#f5b942","#20c997","#f5b942"],borderRadius:5,barThickness:28},{type:"line",label:"Sasaran 95%",data:[95,95,95,95,95],borderColor:"#f16b75",borderDash:[6,5],pointRadius:0,borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:"#9fb1c9",font:{size:9},usePointStyle:true}}},scales:{x:{ticks:{color:"#9fb1c9",font:{size:9}},grid:{display:false}},y:{min:85,max:100,ticks:{color:"#9fb1c9",callback:v=>v+"%",font:{size:9}},grid:{color:"#26364d"}}}}}))}
- const aid=document.getElementById("aidBars");if(aid)aid.innerHTML=[["BAP","1,380 / 1,428 murid",96.6],["KWAMP","82 / 96 penerima",85.4],["SPBT","1,405 / 1,428 set",98.4],["Biasiswa","42 / 48 penerima",87.5]].map((x,i)=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]} · ${x[2]}%</span></div><div class="progress"><i style="width:${x[2]}%;background:${i===1?"#f5b942":i===3?"#a78bfa":"linear-gradient(90deg,#397ee8,#37c6e8)"}"></i></div></div>`).join("");
- donut("disciplineChart",[18,11,8,5],["Ponteng","Lambat","Vape/rokok","Lain-lain"],["#f16b75","#f5b942","#a78bfa","#4f8cff"]);
- donut("goodChart",[72,54,38,22],["Kepimpinan","Sukarelawan","Akademik","Sahsiah"],["#20c997","#4f8cff","#f5b942","#a78bfa"]);
+const GAS_URL='PASTE_URL_WEB_APP_GAS_DI_SINI';let chart;
+function err(s){document.getElementById('note').textContent=s;document.getElementById('note').className='status error'}
+function load(){
+ if(!GAS_URL.startsWith('https://script.google.com/')){err('Masukkan URL Web App GAS dalam GAS_URL.');return}
+ const cb='hemCallback'+Date.now(),sc=document.createElement('script');
+ window[cb]=d=>{render(d);delete window[cb];sc.remove()};
+ sc.src=GAS_URL+'?callback='+cb+'&_='+Date.now();sc.onerror=()=>err('Gagal menghubungi GAS. Semak URL dan deployment.');
+ document.body.appendChild(sc);
 }
-function donut(id,data,labels,colors){let el=document.getElementById(id);if(el)charts.push(new Chart(el,{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:colors,borderColor:"#142137",borderWidth:3,hoverOffset:4}]},options:{maintainAspectRatio:false,cutout:"68%",plugins:{legend:{display:false},tooltip:{enabled:true}}}}))}
-function tablePage(page,sub){
- const cfg={
- murid:{title:"Profil & Data Murid",desc:"Direktori induk, status pendaftaran dan pemantauan keciciran.",subs:submenus.murid,headers:["No. ID","Nama Murid","Kelas","Jantina","Status"],rows:students},
- kehadiran:{title:"Kehadiran & APDM",desc:"Pemantauan rekod harian, analisis bulanan dan intervensi ponteng.",subs:submenus.kehadiran,headers:["Kelas","Jumlah Murid","Hadir","Tidak Hadir","Kehadiran"],rows:[["1 Amanah","30","29","1","96.7%"],["2 Cekal","29","27","2","93.1%"],["3 Bestari","31","28","3","90.3%"],["4 Dinamik","28","27","1","96.4%"],["5 Amanah","30","27","3","90.0%"],["5 Bestari","29","28","1","96.6%"]]},
- disiplin:{title:"Disiplin & SSDM",desc:"Pengurusan salah laku, amalan baik, kes berat dan pengawas.",subs:submenus.disiplin,headers:["Tarikh","Nama Murid","Kelas","Kategori","Status"],rows:[["19/11/2026","Murid SM24042","3 Bestari","Ponteng kelas","Dalam tindakan"],["18/11/2026","Murid SM23015","4 Cekal","Lewat hadir","Selesai"],["17/11/2026","Murid SM25018","2 Cekal","Merokok / vape","Siasatan"],["16/11/2026","Murid SM26001","1 Amanah","Amalan baik","Direkodkan"]]},
- bantuan:{title:"Kebajikan & Bantuan",desc:"Penyelarasan bantuan persekolahan, kebajikan dan perlindungan murid.",subs:submenus.bantuan,headers:["Program","Sasaran","Telah diagih","Dalam proses","Kemajuan"],rows:[["BAP","1,428","1,380","48","96.6%"],["KWAMP","96","82","14","85.4%"],["Biasiswa","48","42","6","87.5%"],["SPBT","1,428","1,405","23","98.4%"],["RMT","120","120","0","100%"],["Takaful","1,428","1,428","0","100%"]]},
- kaunseling:{title:"Bimbingan & Kaunseling",desc:"Rekod sesi, saringan psikometrik dan intervensi Ziarah Cakna.",subs:submenus.kaunseling,headers:["Tarikh","Aktiviti","Kumpulan","Pegawai","Status"],rows:[["19/11/2026","Sesi individu","Tingkatan 3","Guru B&K","Selesai"],["20/11/2026","Saringan psikometrik","Tingkatan 1","Guru B&K","Dijadualkan"],["22/11/2026","Ziarah Cakna","Keluarga murid 2 Cekal","Pasukan HEM","Dirancang"]]},
- "3k":{title:"Keselamatan, Kesihatan & Kebersihan (3K)",desc:"Pemantauan kesihatan, keselamatan persekitaran dan kebersihan.",subs:submenus["3k"],headers:["Tarikh","Komponen","Lokasi","Dapatan","Status"],rows:[["19/11/2026","Kesihatan","Bilik Isolasi","5 murid dipantau","Dalam pemantauan"],["18/11/2026","Denggi","Blok B","1 lokasi berisiko","Tindakan"],["17/11/2026","Keselamatan","Blok Akademik","Pemeriksaan alat pemadam api","Selesai"]]},
- kantin:{title:"Kantin & Asrama",desc:"Pemantauan kendiri kantin, kualiti makanan dan pengurusan asrama.",subs:submenus.kantin,headers:["Tarikh","Komponen","Penyelia","Skor / Dapatan","Status"],rows:[["19/11/2026","Kebersihan kantin","Penyelia Kantin","92 / 100","Baik"],["18/11/2026","Kualiti makanan","Jawatankuasa Kantin","Menu mematuhi","Selesai"],["17/11/2026","Asrama","Warden bertugas","2 aduan penyelenggaraan","Tindakan"]]},
- pibg:{title:"Pemuafakatan PIBG / Sarana",desc:"Jaringan ibu bapa, komuniti dan agensi luar untuk menyokong murid.",subs:submenus.pibg,headers:["Nama / Organisasi","Peranan","Telefon","Penglibatan","Status"],rows:[["Yang Dipertua PIBG","Penasihat","04-000 0000","Mesyuarat PIBG","Aktif"],["Pejabat Pendidikan Daerah","Agensi pendidikan","04-000 0001","Bimbingan akademik","Aktif"],["Klinik Kesihatan","Agensi kesihatan","04-000 0002","Program kesihatan","Aktif"]]}
- }[page];
- let chosen=sub||cfg.subs[0];
- let rows=cfg.rows;
- let isStudent=page==="murid";
- return `${head(cfg.title,cfg.desc)}<div class="subnav">${cfg.subs.map(s=>`<button class="${s===chosen?"active":""}" onclick="changeSub('${page}','${s}')">${s}</button>`).join("")}</div><div class="notice">Paparan prototaip · Modul <b>${chosen}</b>. Data contoh dipaparkan untuk demonstrasi aliran kerja dan bukan rekod rasmi APDM / SSDM.</div><div class="card">${cardTitle(chosen,isStudent?"Senarai contoh murid berdaftar":"Ringkasan rekod dan status terkini","DATA CONTOH")}<div class="toolbar"><input class="field" id="tableSearch" placeholder="Cari nama, kelas atau rekod..." oninput="filterTable()"><select class="field" id="filterSelect" onchange="filterTable()"><option value="">Semua rekod</option>${(isStudent?["Aktif","Dalam pemantauan","Berpindah"]:["Selesai","Dalam tindakan","Siasatan","Aktif"]).map(x=>`<option>${x}</option>`).join("")}</select><button class="btn secondary" onclick="alert('Fungsi tambah rekod ialah simulasi prototaip.')">＋ Tambah rekod</button><button class="btn secondary" onclick="alert('Data contoh sedia untuk dieksport dalam versi integrasi.')">⇩ Eksport</button></div><div class="table-wrap"><table id="dataTable"><thead><tr>${cfg.headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td>${i===r.length-1?statusPill(v):v}</td>`).join("")}</tr>`).join("")}</tbody></table></div><div style="display:flex;justify-content:space-between;color:var(--muted);font-size:9px;margin-top:12px"><span id="rowCount">Memaparkan ${rows.length} rekod contoh</span><span>Halaman 1 daripada 1</span></div></div>`;
+function render(d){
+ if(!d||!d.success){err('Respons API tidak sah.');return}
+ document.getElementById('total').textContent=(d.jumlahMurid||0).toLocaleString('ms-MY');
+ document.getElementById('gender').textContent=`Lelaki ${d.lelaki} · Perempuan ${d.perempuan}`;
+ document.getElementById('attendance').textContent=d.kehadiran.peratus==null?'—':d.kehadiran.peratus.toFixed(1)+'%';
+ document.getElementById('attendanceHint').textContent=d.kehadiran.adaRekod?`${d.kehadiran.hadir} hadir daripada ${d.kehadiran.jumlah} murid`:'Tiada rekod kehadiran hari ini';
+ document.getElementById('sick').textContent=d.muridSakit3K;
+ document.getElementById('date').textContent=d.tarikhData;document.getElementById('updated').textContent='Kemas kini: '+d.dikemasKini;
+ document.getElementById('note').textContent=d.nota||'';
+ const labels=d.pecahanTingkatan.map(x=>x.tingkatan.replace('Tingkatan ','T')),vals=d.pecahanTingkatan.map(x=>x.peratus);
+ if(chart)chart.destroy();
+ chart=new Chart(document.getElementById('chart'),{type:'bar',data:{labels,datasets:[
+ {label:'Kehadiran',data:vals,backgroundColor:vals.map(v=>v==null?'#52647d':v>=95?'#20c997':'#f5b942'),borderRadius:5,barThickness:34},
+ {type:'line',label:'Sasaran 95%',data:[95,95,95,95,95],borderColor:'#f16b75',borderDash:[6,5],pointRadius:0,borderWidth:2}
+ ]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:'#a9bdd7',font:{size:10},usePointStyle:true}}},scales:{x:{ticks:{color:'#a9bdd7'},grid:{display:false}},y:{min:0,max:100,ticks:{color:'#a9bdd7',callback:v=>v+'%'},grid:{color:'#26364d'}}}}});
+ document.getElementById('chartStatus').textContent=d.kehadiran.adaRekod?'Data kehadiran hari ini.':'Tiada rekod untuk tarikh hari ini.';
 }
-function statusPill(v){let s=String(v).toLowerCase(),c=(s.includes("selesai")||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
-function reports(){return `${head("Laporan & Analisis","Penjanaan laporan eksekutif untuk pemantauan dan mesyuarat pengurusan.")}<div class="grid report-grid">${[["Laporan Kehadiran","Analisis kehadiran mengikut tingkatan, kelas dan tempoh.","▣"],["Laporan Disiplin SSDM","Ringkasan salah laku, amalan baik dan status intervensi.","⚑"],["Laporan Kebajikan","Status agihan BAP, KWAMP, SPBT, RMT dan biasiswa.","♡"],["Laporan 3K","Kesihatan, keselamatan, kebersihan dan tindakan susulan.","✚"],["Laporan Kaunseling","Sesi kaunseling, psikometrik dan Ziarah Cakna.","☏"],["Laporan Eksekutif HEM","Ringkasan KPI utama untuk pembentangan pengurusan.","▤"]].map(x=>`<div class="card report-tile"><div class="kpi-icon blue" style="margin-bottom:13px">${x[2]}</div><h3>${x[0]}</h3><p>${x[1]}</p><button class="btn secondary" onclick="generateReport('${x[0]}','pdf')">Jana PDF ↗</button> <button class="btn secondary" onclick="generateReport('${x[0]}','excel')">Excel ↗</button></div>`).join("")}</div><div class="card section-card">${cardTitle("Prestasi KPI HEM","Pencapaian indikator utama sekolah bagi sesi 2026/2027.")}${[["Kehadiran murid","94.2% daripada sasaran 95%",94.2],["Penyelesaian agihan SPBT","98.4%",98.4],["Pengesahan BAP","96.6%",96.6],["Tindakan kes disiplin","75% kes selesai",75]].map(x=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]}</span></div><div class="progress"><i style="width:${x[2]}%"></i></div></div>`).join("")}</div>`}
-function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="laporan")c.innerHTML=reports();else c.innerHTML=tablePage(currentPage,currentSub)}
-function changeSub(p,s){currentSub=s;render()}
-function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod contoh`}
-function generateReport(name,type){let text=`${name}\nSM Sains Sultan Mohamad Jiwa\nTarikh: 19 November 2026\n\nLaporan ini ialah simulasi prototaip Dashboard HEM.\nJumlah murid: 1,428\nKehadiran: 94.2%\nKes disiplin aktif: 12\nPenerima bantuan: 386\n`;let blob=new Blob([text],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name.replaceAll(" ","_")+(type==="pdf"?".txt (simulasi PDF).txt":".csv");a.click();URL.revokeObjectURL(a.href);alert(`Simulasi eksport ${type.toUpperCase()} dijalankan. Untuk fail PDF/Excel sebenar, sambungkan modul penjanaan dokumen.`)}
-document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>{currentPage=b.dataset.page;currentSub="";render();document.getElementById("sidebar").classList.remove("open")}));
-document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
-document.getElementById("globalSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){currentPage="murid";currentSub="Senarai Induk Murid";render();let x=document.getElementById("tableSearch");if(x){x.value=e.target.value;filterTable()}}});
-render();
-</script>
-</body>
-</html>
+document.getElementById('refresh').onclick=load;load();
+</script></body></html>
