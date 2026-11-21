@@ -49,31 +49,61 @@
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbw0LMXCD7ZwdVY4IVMav8Ix5NQF2ng8wwvHqCAv21_cD9wj6q6sxC6l10yNPHH2DrI21w/exec';
 let hemDashboardData = null;
 
+let hemDashboardScript = null;
+let hemDashboardTimeout = null;
+
+function hemDashboardCallback(data){
+  clearTimeout(hemDashboardTimeout);
+  try{
+    if(!data || data.success !== true) throw new Error(data && data.error ? data.error : 'Respons API tidak sah.');
+    hemDashboardData = data;
+    const note = document.getElementById('hemDataNote');
+    updateHemDashboard(data);
+    if(note) note.textContent = (data.nota || 'Data berjaya dimuatkan daripada Google Sheets.') +
+      ' Dikemas kini: ' + (data.dikemasKini || '—');
+  }catch(err){
+    const note = document.getElementById('hemDataNote');
+    if(note) note.textContent = 'Ralat data HEM: ' + err.message;
+    console.error('Dashboard HEM:', err);
+  }finally{
+    if(hemDashboardScript){hemDashboardScript.remove();hemDashboardScript=null;}
+  }
+}
+
 function loadHemData(){
-  const note = document.getElementById('hemDataNote');
-  if(!GAS_URL.startsWith('https://script.google.com/')){
-    if(note) note.textContent = 'Masukkan URL Web App GAS pada pemboleh ubah GAS_URL.';
+  const note=document.getElementById('hemDataNote');
+  if(note) note.textContent='Menghubungkan ke Google Sheets...';
+
+  if(!GAS_URL || !GAS_URL.startsWith('https://script.google.com/')){
+    if(note) note.textContent='URL Web App GAS tidak sah.';
     return;
   }
-  const cb = 'hemCallback_' + Date.now();
-  const script = document.createElement('script');
-  window[cb] = d => {
-    try {
-      if(!d || !d.success) throw new Error('Respons API tidak sah.');
-      hemDashboardData = d;
-      updateHemDashboard(d);
-      if(note) note.textContent = d.nota || 'Data berjaya dimuatkan daripada Google Sheets.';
-    } catch(e) {
-      if(note) note.textContent = 'Ralat data: ' + e.message;
-    } finally { delete window[cb]; script.remove(); }
+
+  if(hemDashboardScript) hemDashboardScript.remove();
+  clearTimeout(hemDashboardTimeout);
+
+  const script=document.createElement('script');
+  hemDashboardScript=script;
+  script.async=true;
+  script.onerror=()=>{
+    clearTimeout(hemDashboardTimeout);
+    if(note) note.textContent='Gagal memuatkan respons JSONP GAS. Semak deployment Web App.';
+    script.remove();
+    hemDashboardScript=null;
   };
-  script.onerror = () => {
-    if(note) note.textContent = 'Gagal menghubungi GAS. Semak URL dan deployment.';
-    delete window[cb]; script.remove();
-  };
-  script.src = GAS_URL + (GAS_URL.includes('?') ? '&' : '?') +
-    'api=hemDashboard&callback=' + encodeURIComponent(cb) + '&_=' + Date.now();
-  document.body.appendChild(script);
+
+  const url=GAS_URL+(GAS_URL.includes('?')?'&':'?')+
+    'api=hemDashboard&callback=hemDashboardCallback&_='+Date.now();
+  script.src=url;
+  document.head.appendChild(script);
+
+  hemDashboardTimeout=setTimeout(()=>{
+    if(hemDashboardScript===script){
+      script.remove();
+      hemDashboardScript=null;
+      if(note) note.textContent='Sambungan GAS mengambil masa terlalu lama. Klik Kemas kini data untuk cuba lagi.';
+    }
+  },20000);
 }
 function updateHemDashboard(d){
   const put = (id,v) => { const e=document.getElementById(id); if(e)e.textContent=v; };
@@ -307,7 +337,7 @@ function tablePage(page,sub){
 }
 function statusPill(v){let s=String(v).toLowerCase(),c=(s.includes("selesai")||s==="aktif"||s==="baik"||s.includes("direkod"))?"ok":(s.includes("tindakan")||s.includes("siasatan")||s.includes("pemantauan"))?"warn":"info";return `<span class="pill ${c}">${v}</span>`}
 function reports(){return `${head("Laporan & Analisis","Penjanaan laporan eksekutif untuk pemantauan dan mesyuarat pengurusan.")}<div class="grid report-grid">${[["Laporan Kehadiran","Analisis kehadiran mengikut tingkatan, kelas dan tempoh.","▣"],["Laporan Disiplin SSDM","Ringkasan salah laku, amalan baik dan status intervensi.","⚑"],["Laporan Kebajikan","Status agihan BAP, KWAMP, SPBT, RMT dan biasiswa.","♡"],["Laporan 3K","Kesihatan, keselamatan, kebersihan dan tindakan susulan.","✚"],["Laporan Kaunseling","Sesi kaunseling, psikometrik dan Ziarah Cakna.","☏"],["Laporan Eksekutif HEM","Ringkasan KPI utama untuk pembentangan pengurusan.","▤"]].map(x=>`<div class="card report-tile"><div class="kpi-icon blue" style="margin-bottom:13px">${x[2]}</div><h3>${x[0]}</h3><p>${x[1]}</p><button class="btn secondary" onclick="generateReport('${x[0]}','pdf')">Jana PDF ↗</button> <button class="btn secondary" onclick="generateReport('${x[0]}','excel')">Excel ↗</button></div>`).join("")}</div><div class="card section-card">${cardTitle("Prestasi KPI HEM","Pencapaian indikator utama sekolah bagi sesi 2026/2027.")}${[["Kehadiran murid","94.2% daripada sasaran 95%",94.2],["Penyelesaian agihan SPBT","98.4%",98.4],["Pengesahan BAP","96.6%",96.6],["Tindakan kes disiplin","75% kes selesai",75]].map(x=>`<div class="progress-row"><div class="progress-meta"><b>${x[0]}</b><span>${x[1]}</span></div><div class="progress"><i style="width:${x[2]}%"></i></div></div>`).join("")}</div>`}
-function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts()}else if(currentPage==="murid"){c.innerHTML=profileModulePage()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){if(currentSub==="Analisis Bulanan"){c.innerHTML=monthlyAnalysisPage();loadMonthlyAnalysis(document.getElementById("monthlyPicker").value)}else{c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}}else c.innerHTML=tablePage(currentPage,currentSub)}
+function render(){charts.forEach(c=>c.destroy());charts=[];document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===currentPage));let c=document.getElementById("content");if(currentPage==="dashboard"){c.innerHTML=dashboard();setupCharts();if(hemDashboardData)updateHemDashboard(hemDashboardData)}else if(currentPage==="murid"){c.innerHTML=profileModulePage()}else if(currentPage==="laporan")c.innerHTML=reports();else if(currentPage==="kehadiran"){if(currentSub==="Analisis Bulanan"){c.innerHTML=monthlyAnalysisPage();loadMonthlyAnalysis(document.getElementById("monthlyPicker").value)}else{c.innerHTML=attendancePage(currentSub);if((currentSub||submenus.kehadiran[0])==="Rekod Harian")loadAttendanceModule(document.getElementById("attendanceDate").value)}}else c.innerHTML=tablePage(currentPage,currentSub)}
 function changeSub(p,s){currentSub=s;render()}
 function filterTable(){let q=(document.getElementById("tableSearch")?.value||"").toLowerCase(),f=document.getElementById("filterSelect")?.value||"",rows=[...document.querySelectorAll("#dataTable tbody tr")],n=0;rows.forEach(r=>{let text=r.innerText.toLowerCase(),last=r.cells[r.cells.length-1].innerText;let show=text.includes(q)&&(!f||last===f);r.style.display=show?"":"none";if(show)n++});document.getElementById("rowCount").textContent=`Memaparkan ${n} daripada ${rows.length} rekod contoh`}
 function generateReport(name,type){let text=`${name}\nSM Sains Sultan Mohamad Jiwa\nTarikh: 19 November 2026\n\nLaporan ini ialah simulasi prototaip Dashboard HEM.\nJumlah murid: 1,428\nKehadiran: 94.2%\nKes disiplin aktif: 12\nPenerima bantuan: 386\n`;let blob=new Blob([text],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name.replaceAll(" ","_")+(type==="pdf"?".txt (simulasi PDF).txt":".csv");a.click();URL.revokeObjectURL(a.href);alert(`Simulasi eksport ${type.toUpperCase()} dijalankan. Untuk fail PDF/Excel sebenar, sambungkan modul penjanaan dokumen.`)}
